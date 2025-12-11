@@ -583,9 +583,9 @@ def main():
 
         if choix == "1":
             # Charger les préférences depuis les fichiers
-            CE = lire_pref_etudiants("PrefEtu.txt")
+            CE = lire_pref_etudiants("data/PrefEtu.txt")
             #print(CE)
-            CP, capacites = lire_pref_parcours("PrefSpe.txt")
+            CP, capacites = lire_pref_parcours("data/PrefSpe.txt")
             #print(CP)
 
             # Exécuter les algorithmes Gale-Shapley
@@ -621,8 +621,8 @@ def main():
         elif choix == "3":
             # Générer un fichier LP pour l'affectation
             n = 11
-            preferences_students = lire_pref_etudiants("PrefEtu.txt")
-            _, capacities = lire_pref_parcours("PrefSpe.txt")
+            preferences_students = lire_pref_etudiants("data/PrefEtu.txt")
+            _, capacities = lire_pref_parcours("data/PrefSpe.txt")
             k = int(input("Entrez la valeur de k : "))
             generate_lp_file_k(n, preferences_students, capacities, k, "affectation_k.lp")
             print("Fichier LP généré : affectation_k.lp")
@@ -631,8 +631,8 @@ def main():
             # Tester la fonction find_min_k et afficher le résultat
             n = 11
             m = 9
-            preferences_students = lire_pref_etudiants("PrefEtu.txt")
-            preferences_parcours, capacities = lire_pref_parcours("PrefSpe.txt")
+            preferences_students = lire_pref_etudiants("data/PrefEtu.txt")
+            preferences_parcours, capacities = lire_pref_parcours("data/PrefSpe.txt")
             k_min = find_min_k(n, preferences_students, capacities)
             print(f"Le plus petit k pour lequel la solution est faisable est : {k_min}")
             # Maximiser l'utilité minimale des étudiants pour ce k
@@ -643,22 +643,22 @@ def main():
         elif choix == "5":
             # Générer un fichier LP pour maximiser les utilités des étudiants et des parcours
             n = 11
-            preferences_students = lire_pref_etudiants("PrefEtu.txt")
-            preferences_parcours, capacities = lire_pref_parcours("PrefSpe.txt")
+            preferences_students = lire_pref_etudiants("data/PrefEtu.txt")
+            preferences_parcours, capacities = lire_pref_parcours("data/PrefSpe.txt")
             k = int(input("Entrez la valeur de k : "))
             generate_lp_file_maximum(n, len(preferences_parcours), preferences_students, preferences_parcours, capacities, k, "affectation_max.lp")
             print("Fichier LP généré : affectation_max.lp")
         
         elif choix == "6":
             n = 11
-            preferences_students = lire_pref_etudiants("PrefEtu.txt")
-            preferences_parcours, capacities = lire_pref_parcours("PrefSpe.txt")
+            preferences_students = lire_pref_etudiants("data/PrefEtu.txt")
+            preferences_parcours, capacities = lire_pref_parcours("data/PrefSpe.txt")
             k = int(input("Entrez la valeur de k : "))
             maximize_utility_and_fairness(n, len(preferences_parcours), preferences_students, preferences_parcours, capacities, k)
 
         elif choix == "7":
-            CE = lire_pref_etudiants("PrefEtu.txt")
-            CP, capacites = lire_pref_parcours("PrefSpe.txt")
+            CE = lire_pref_etudiants("data/PrefEtu.txt")
+            CP, capacites = lire_pref_parcours("data/PrefSpe.txt")
             
             affectations_etudiants = gale_shapley_etudiants(CE, CP, capacites)
             affectations_parcours = gale_shapley_parcours(CE, CP, capacites)

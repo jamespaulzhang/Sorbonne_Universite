@@ -1,2 +1,0 @@
-monFichierLP.lp 3I015 25
-12 12 11
