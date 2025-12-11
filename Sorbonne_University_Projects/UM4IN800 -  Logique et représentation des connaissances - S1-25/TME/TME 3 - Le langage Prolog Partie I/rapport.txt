@@ -1,0 +1,108 @@
+Exercice 1
+?- r(f(f(a)),b).
+true.
+
+[trace]  ?- r(f(f(a)),b).
+   Call: (12) r(f(f(a)), b) ? creep
+   Call: (13) p(f(a), b) ? creep
+   Call: (14) r(a, b) ? creep
+   Exit: (14) r(a, b) ? creep
+   Exit: (13) p(f(a), b) ? creep
+   Exit: (12) r(f(f(a)), b) ? creep
+true.
+
+?- p(f(a),b).
+true.
+
+[trace]  ?- p(f(a),b).
+   Call: (12) p(f(a), b) ? creep
+   Call: (13) r(a, b) ? creep
+   Exit: (13) r(a, b) ? creep
+   Exit: (12) p(f(a), b) ? creep
+true.
+
+Exercice 2
+?- q(X,b).
+X = b ;
+X = a ;
+false.
+
+[trace]  ?- q(X,b).
+   Call: (12) q(_60748, b) ? creep
+   Exit: (12) q(b, b) ? creep
+X = b ;
+   Redo: (12) q(_60748, b) ? creep
+   Call: (13) r(_60748, _65232) ? creep
+   Exit: (13) r(a, b) ? creep
+   Call: (13) q(b, b) ? creep
+   Exit: (13) q(b, b) ? creep
+   Exit: (12) q(a, b) ? creep
+X = a ;
+   Redo: (13) q(b, b) ? creep
+   Call: (14) r(b, _71660) ? creep
+   Fail: (14) r(b, _71660) ? creep
+   Fail: (13) q(b, b) ? creep
+   Fail: (12) q(_60748, b) ? creep
+false.
+
+?- q(b,X).
+X = b ;
+false.
+
+[trace]  ?- q(b,X).
+   Call: (12) q(b, _80900) ? creep
+   Exit: (12) q(b, b) ? creep
+X = b ;
+   Redo: (12) q(b, _80900) ? creep
+   Call: (13) r(b, _85374) ? creep
+   Fail: (13) r(b, _85374) ? creep
+   Fail: (12) q(b, _80900) ? creep
+false.
+
+Exercice 3
+% Règles
+revise(X)    :- serieux(X).            % Les étudiants sérieux révisent leurs examens.
+fait_devoirs(X) :- consciencieux(X).   % Un étudiant consciencieux fait ses devoirs pour le lendemain.
+reussit(X)   :- revise(X).             % Les étudiants qui révisent réussissent.
+serieux(X)   :- fait_devoirs(X).       % Les étudiants qui font leurs devoirs sont sérieux.
+
+% Faits
+consciencieux(pascal).
+consciencieux(zoe).
+
+?- reussit(pascal).
+true.
+
+[trace]  ?- reussit(pascal).
+   Call: (12) reussit(pascal) ? creep
+   Call: (13) revise(pascal) ? creep
+   Call: (14) serieux(pascal) ? creep
+   Call: (15) fait_devoirs(pascal) ? creep
+   Call: (16) consciencieux(pascal) ? creep
+   Exit: (16) consciencieux(pascal) ? creep
+   Exit: (15) fait_devoirs(pascal) ? creep
+   Exit: (14) serieux(pascal) ? creep
+   Exit: (13) revise(pascal) ? creep
+   Exit: (12) reussit(pascal) ? creep
+true.
+
+?- reussit(zoe).
+true.
+
+[trace]  ?- reussit(zoe).
+   Call: (12) reussit(zoe) ? creep
+   Call: (13) revise(zoe) ? creep
+   Call: (14) serieux(zoe) ? creep
+   Call: (15) fait_devoirs(zoe) ? creep
+   Call: (16) consciencieux(zoe) ? creep
+   Exit: (16) consciencieux(zoe) ? creep
+   Exit: (15) fait_devoirs(zoe) ? creep
+   Exit: (14) serieux(zoe) ? creep
+   Exit: (13) revise(zoe) ? creep
+   Exit: (12) reussit(zoe) ? creep
+true.
+
+Exercice 4
+grandpere(X,moi) faut avoir deux reponse
+
+si on changer la position des lignes, alors il va changer la combinaison
