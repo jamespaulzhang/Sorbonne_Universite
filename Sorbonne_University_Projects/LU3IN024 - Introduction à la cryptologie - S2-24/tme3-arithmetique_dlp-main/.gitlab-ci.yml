@@ -1,0 +1,16 @@
+image: python:latest
+
+stages:
+- test
+
+1-Ex1-Arit:
+  script: python3 test-1-ex1-arit.py
+
+2-Ex2-DLog:
+  script: python3 test-2-ex2-dlog.py
+
+3-Ex3-Primes:
+  script: python3 test-3-ex3-primes.py
+
+4-Ex4-BSGS:
+  script: python3 test-4-ex4-bsgs.py

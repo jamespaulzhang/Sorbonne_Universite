@@ -1,0 +1,35 @@
+image: python:latest
+
+#commands to run in the Docker container before starting each job.
+before_script:
+  - pip3 install -r requirements.txt
+
+stages:
+- test
+
+1-est_elliptique:
+  script: python3 test-1-est-elliptique.py
+
+2-point_sur_courbe:
+  script: python3 test-2-point-sur-courbe.py
+
+3-cardinal:
+  script: python3 test-3-cardinal.py
+
+4-liste_points:
+  script: python3 test-4-liste-points.py
+
+5-cardinaux_courbes:
+  script: python3 test-5-cardinaux-courbes.py
+
+6-loi_groupe:
+  script: python3 test-6-loi-groupe.py
+
+7-multiplication_scalaire:
+  script: python3 test-7-multiplication-scalaire.py
+
+8-ordre:
+  script: python3 test-8-ordre.py
+
+9-DH:
+  script: python3 test-9-DH.py

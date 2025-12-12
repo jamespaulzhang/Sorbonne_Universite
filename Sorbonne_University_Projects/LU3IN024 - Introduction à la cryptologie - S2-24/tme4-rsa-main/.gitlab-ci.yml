@@ -1,0 +1,10 @@
+image: python:latest
+
+stages:
+- test
+
+1-Ex1-RSA:
+  script: python3 test-1-rsa.py
+
+2-Ex2-Wiener:
+  script: python3 test-2-wiener.py
