@@ -1,0 +1,71 @@
+TP_06
+Numero_Etudiant: 21202829
+
+Exercice 1
+Question 1
+egrep "127.0.0.[0-9]{1,3}" hosts.txt | cut -d ' ' -f 1
+127.0.0.1
+
+ou avec la commande:
+grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}' /etc/hosts
+127.0.0.1
+127.0.1.1
+
+Question 2
+lpoptions -l | cut -d '*' -f 2 | cut -d ' ' -f 1
+
+Question 3
+ip a | grep "enp" | grep "inet" | tr -s ' ' | cut -d' ' -f 3
+
+//ip a : Affiche les informations sur les interfaces réseau.
+grep "enp" : Filtre les lignes qui contiennent "enp", ce qui est souvent le préfixe pour les noms d'interfaces Ethernet.
+grep "inet" : Filtre les lignes qui contiennent "inet", ce qui indique les adresses IP.
+tr -s ' ' : Remplace les espaces multiples par un seul espace.
+cut -d' ' -f 3 : Divise chaque ligne en champs en utilisant l'espace comme délimiteur, puis 
+extrait le troisième champ.
+
+ou avec la commande;
+ip addr | grep -o 'inet [0-9.]*' | cut -d ' ' -f2
+
+Question 4
+wc -l < /etc/passwd
+51
+grep nologin /etc/passwd | wc -l
+40
+
+ou avec une autre methode:
+cat /etc/passwd | wc -l
+51
+grep '/sbin/nologin' /etc/passwd | wc -l
+49
+
+Question 5
+Dans le script whoInstalled.sh:
+#!/bin/bash
+
+grep '^[^:]*:[^:]*:1000:' /etc/passwd | cut -d ':' -f1
+
+chmod +x whoInstalled.sh
+./whoInstalled.sh
+
+Il s'affiche;
+laviestbelle
+
+Question 6
+groups $(./whoInstalled.sh)
+
+Il s'affiche:
+laviestbelle : laviestbelle adm cdrom sudo dip plugdev lpadmin lxd sambashare
+
+Question 7:
+df --output=source,size -h | sort -hr -k2 | head -n 2 | tail -n 1 | awk '{print $1}'
+Explication :
+
+df --output=source,size -h affiche les informations sur les systèmes de fichiers, en spécifiant seulement les colonnes "source" (point de montage) et "size" (taille) en format lisible par l'homme (-h).
+sort -hr -k2 trie les lignes en fonction de la taille (colonne 2) dans l'ordre inverse (-h pour un tri humain, c'est-à-dire avec les tailles en Mo, Go, etc.).
+head -n 2 sélectionne les deux premières lignes, qui représentent les deux partitions avec le plus d'espace libre.
+tail -n 1 sélectionne la dernière ligne de ces deux partitions, qui a la plus grande quantité d'espace libre.
+awk '{print $1}' extrait la première colonne, qui contient le point de montage.
+
+Il s'affiche:
+/dev/sdb6

@@ -1,0 +1,62 @@
+auto1.show()
+print('---')
+assert auto1.succ({s0, s2}, 'b') == {s1}
+assert auto1.succ({s0}, 'a') == {s0}
+assert auto1.succ({s0, s1}, 'a') == {s0, s2}
+
+def accepte(self, mot) :
+    """ Automate x str -> bool
+        rend True si auto accepte mot, False sinon
+    """
+    state = self.getSetInitialStates()
+    for etiquette in mot:
+        state = self.succ(state, etiquette)
+    for s0 in self.getSetFinalStates():
+        for s1 in state:
+            if s0 == s1:
+                return True
+    return False
+
+Automate.accepte = accepte
+
+
+def estDeterministe(self) :
+    """ Automate -> bool
+        rend True si auto est déterministe, False sinon
+    """
+    flag = True
+    if len(self.getSetInitialStates()) != 1:
+        flag = False
+    for state in self.allStates:
+        for etiq in self.getSetTransitionsFrom(state):
+            if len(self.succElem(state, etiq.etiquette)) > 1:
+                flag = False
+    return flag
+    
+
+    
+Automate.estDeterministe = estDeterministe
+
+# A faire 
+def estDeterministe(self) :
+    """ Automate -> bool
+        rend True si auto est déterministe, False sinon
+    """
+    # Vérifier s'il y a exactement un état initial
+    if len(self.getSetInitialStates()) != 1:
+        # Si ce n'est pas le cas, l'automate n'est pas déterministe
+        return False
+
+    # Parcourir tous les états de l'automate
+    for state in self.allStates:
+        # Parcourir toutes les transitions sortantes de l'état actuel
+        for etiq in self.getSetTransitionsFrom(state):
+            # Vérifier si la transition produit plus d'un état de destination
+            if len(self.succElem(state, etiq.etiquette)) > 1:
+                # Si c'est le cas, l'automate n'est pas déterministe
+                return False
+    # Si toutes les conditions sont remplies, l'automate est déterministe
+    return True
+
+# Ajout de la méthode 'estDeterministe' à la classe 'Automate'
+Automate.estDeterministe = estDeterministe

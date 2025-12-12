@@ -1,0 +1,259 @@
+Exercice 26
+public class TestTableauMain{
+	public static void main(String[] args){
+		int i = 0;
+		System.out.println("Il y a " + args.length + " arguments");
+		for(String x : args){
+			System.out.println("args[" + i + "] = " + x);
+			i += 1;
+		}
+	}
+}
+
+Exercice 27
+Q 27.1
+public class VectN{
+	private int[] tab;
+
+	private VectN(int n){
+		tab = new int[n];
+	}
+
+	public VectN(int n, int valMax){
+		this(n);
+		for(int i = 0; i < tab.length; i++){
+			tab[i] = (int)(Math.random()*(valMax+1)+0);
+		}
+	}
+
+	public VectN(){
+		this(5);
+		for(int i = 0; i < tab.length; i++){
+			tab[i] = (int)(Math.random()*(10)+0);
+		}
+	}
+
+	public VectN(int a,int b,int c){
+		this(3);
+		tab[0] = a;
+		tab[1] = b;
+		tab[2] = c;
+	}
+}
+
+Q 27.2 (a) : Pour que le constructeur de signature VectN(int n) ne puisse pas être utilisé pour créer des objets à l'extérieur de la classe, nous devons le déclarer en tant que constructeur privé comme dans le code ci-dessus. Cela signifie qu'il ne peut être appelé que depuis d'autres constructeurs de la classe.
+
+Q 27.3
+	public int somme(){
+		int som = 0;
+		for(int x : tab){
+			som += x;
+		}
+		return som;
+	}
+
+	public String toString(){
+		String s = "";
+		int i = 0;
+		for (int x : tab){
+			s += x ;
+			if(i < tab.length-1){
+				s += ", ";
+				i+=1;
+			}
+		}
+		return "[" + s + "]";
+	}
+
+
+Q 27.4 : 
+Il est généralement une bonne pratique de fournir des accesseurs (getters) pour les variables d'instance privées afin de permettre un accès contrôlé à ces données. Cependant, dans le cas d'un tableau, nous devons faire attention car le tableau retourné par getTab() est une référence au tableau interne de la classe. Cela signifie que si le tableau est modifié à l'extérieur de la classe, cela affectera également l'état interne de l'objet. C'est pourquoi dans le code, nous avons copié le tableau pour éviter cette modification accidentelle.
+
+Cela dit, si nous souhaitons éviter ce genre de problème, nous pourrions envisager de retourner une copie du tableau plutôt que la référence directe. 
+	public int[] getTab(){
+		int[] tab2 = new int[tab.length];
+		for (int i = 0; i < tab.length; i++){
+			tab2[i] = tab[i];
+		}
+		return tab2;
+	}
+ 
+et dans TestVectN.java :
+public class TestVectN{
+    public static void main(String[] args) {
+    // Testons les constructeurs et les méthodes
+    // VectN vect1 = new VectN(5); ca c'est pas possible car constructeur VectN(int n) est prive
+    VectN vect2 = new VectN(3, 10);
+    VectN vect3 = new VectN();
+    VectN vect4 = new VectN(4, 5, 6);
+
+    //System.out.println("Vecteur 1: " + vect1);
+    System.out.println("Vecteur 2: " + vect2);
+    System.out.println("Vecteur 3: " + vect3);
+    System.out.println("Vecteur 4: " + vect4);
+
+    System.out.println("Somme de vecteur 2: " + vect2.somme());
+
+    int[] tab = vect4.getTab();
+    tab[0] = 100;
+    System.out.println("Vecteur 4 après modification: " + vect4);
+    }
+}
+
+Il s'affiche :
+Vecteur 2: [0, 0, 10]                                                                                                   
+Vecteur 3: [9, 2, 4, 0, 3]                                                                                              
+Vecteur 4: [4, 5, 6]                                                                                                    
+Somme de vecteur 2: 10                                                                                                  
+Vecteur 4 après modification: [4, 5, 6] 
+
+Exercice 28
+Q 28.1
+public class Assiette{
+	private int diametre;
+
+	public Assiette(int diametre){
+		this.diametre = diametre;
+	}
+
+	public Assiette(){
+		this(26);
+	}
+
+	public String toString(){
+		return "Assiette " + diametre + " cm";
+	}
+}
+
+Q 28.2
+public class Pile{
+	private Assiette[] tab;
+	private int nbA;
+
+	public Pile(int taille_max){
+		tab = new Assiette[taille_max];
+		nbA = 0;
+	}
+
+	public boolean estVide(){
+		return nbA == 0;
+	}
+
+	public boolean estPleine(){
+		return nbA == tab.length;
+	}
+
+	public void empiler(Assiette a) {
+        if (!estPleine()) {
+            tab[nbA] = a;
+            nbA++;
+        }
+    }
+	
+	public Assiette depiler() {
+        if (!estVide()) {
+            nbA--;
+            Assiette a = tab[nbA];
+            tab[nbA] = null; // Retirer l'assiette du sommet de la pile
+            return a;
+        }
+        return null;
+    }
+
+ 	public String toString() {
+        StringBuilder result = new StringBuilder();
+        for (int i = nbA - 1; i >= 0; i--) {
+            result.append(tab[i]).append("\n");
+        }
+        return result.toString();
+    }
+}
+
+Q 28.3
+public class TestPile{
+	public static void main(String[] args){
+		Pile p1 = new Pile(3); //créer une pile pouvant contenir au maximum 3 assiettes
+		System.out.println(p1.estVide());
+		//empiler trois assiettes
+		p1.empiler(new Assiette(1));
+		p1.empiler(new Assiette(2));
+		p1.empiler(new Assiette(3));
+		System.out.println(p1);
+		//dépiler une fois
+		System.out.println(p1.depiler());
+		//empiler deux autres assiettes (la pile sera pleine)
+		p1.empiler(new Assiette(4));
+		p1.empiler(new Assiette(5));
+		System.out.println(p1.estPleine());
+		//dépiler 4 fois (la pile sera vide)
+		System.out.println(p1.depiler());
+		System.out.println(p1.depiler());
+		System.out.println(p1.depiler());
+		System.out.println(p1.depiler());
+
+	}
+}
+
+Il s'affiche :
+Assiette 3 cm                                                                                                           
+Assiette 2 cm                                                                                                           
+Assiette 1 cm      
+                                                                                                                                                                                                                             
+Assiette 2 cm                                                                                                           
+Assiette 1 cm          
+                                                                                                                                                                                                                         
+Assiette 4 cm                                                                                                           
+Assiette 2 cm                                                                                                           
+Assiette 1 cm                                                                                                                                                                                                                                                                                                                                                                             
+
+Exercice 29
+Q 29.1
+public class TrianglePascal{
+	private int[][] tab_deux_dim;
+
+	public TrianglePascal(int n){
+		tab_deux_dim = new int[n][];
+		for(int i = 0; i < tab_deux_dim.length; i++){
+			tab_deux_dim[i] = new int[i+1];
+		}
+	}
+
+	public void remplirTriangle(){
+		for(int i = 0; i < tab_deux_dim.length; i++){
+			for(int j = 0; j < tab_deux_dim[i].length; j++){
+				if(j == 0 || j == i){
+					tab_deux_dim[i][j] = 1;
+				}else{
+					tab_deux_dim[i][j] = tab_deux_dim[i - 1][j - 1] + tab_deux_dim[i - 1][j];
+				}
+			}
+		}
+	}
+
+	public String toString(){
+		StringBuilder s = new StringBuilder();
+		for(int i = 0; i < tab_deux_dim.length; i++){
+			for(int j = 0; j < tab_deux_dim[i].length; j++){
+				s.append(tab_deux_dim[i][j] + " ");
+			}
+			s.append("\n");
+		}
+		return s.toString();
+	}
+}
+
+Q 29.2
+public class TestTrianglePascal{
+	public static void main(String[] args){
+		TrianglePascal t = new TrianglePascal(5);
+		t.remplirTriangle();
+		System.out.println(t);
+	}
+}
+
+Il s'affiche :
+1                                                                                                                      
+1 1                                                                                                                    
+1 2 1                                                                                                                 
+1 3 3 1                                                                                                                 
+1 4 6 4 1 

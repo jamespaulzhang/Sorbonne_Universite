@@ -1,0 +1,10 @@
+let rec aux acc = function：在这里，我们定义了一个递归的辅助函数 aux，它有两个参数：
+  acc：这是一个累加器，将存储筛选后的元素。
+  function：这表示函数 aux 将使用模式匹配。
+  | [] -> List.rev acc：这是模式匹配的第一个分支。如果列表为空 ([])，这意味着我们已经遍历了原始列表的所有元素。在这种情况下，我们返回累加器 acc，但使用 List.rev 来颠倒元素的顺序，因为它们是以相反的顺序添加的。
+  | x :: xs ->：这是模式匹配的第二个分支。此分支适用于列表至少包含一个元素，我们将其分解为头部 x 和剩余部分 xs。
+  let is_multiple y = x mod y = 0 in：这一行定义了一个本地函数 is_multiple，它接受一个参数 y 并检查 x 是否是 y 的倍数。如果是，它返回 true，否则返回 false。
+  let no_multiples = not (List.exists is_multiple acc) in：这一行定义了一个变量 no_multiples，如果 acc 中没有任何元素是 x 的因子，则为 true。这意味着 x 不是原始列表中任何前面元素的倍数。
+  if no_multiples then aux (x :: acc) xs else aux acc xs：这是一个条件语句。如果 no_multiples 为真，我们将 x 添加到累加器 acc 中，并继续使用 xs 探索列表的其余部分。否则，我们不将 x 添加到累加器中，继续处理 xs。
+  in aux [] l ：这标志着 aux 函数的定义结束。我们最初使用一个空累加器 [] 和原始列表 l 来调用它。
+总结：函数 ecreme 过滤整数列表，保留那些在原列表中前面没有任何元素是其倍数的整数。它使用一个递归的辅助函数 (aux)，该函数使用模式匹配来处理基本和递归情况。函数 is_multiple 检查一个数字是否是另一个数字的倍数。

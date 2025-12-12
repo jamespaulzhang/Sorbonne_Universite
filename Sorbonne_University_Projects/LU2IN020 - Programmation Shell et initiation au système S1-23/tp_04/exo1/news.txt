@@ -1,0 +1,9 @@
+Le Bash c'est même sous Windows !!!
+Grâce à Windows Subsystem for Linux (wsl),
+il est aujourd'hui possible d'exécuter des
+exécutables binaires Linux (au format ELF)
+de manière native sur Windows 10. On peut
+voir ce mécanisme comme une émulation du 
+"mode user" d'un système gnu-Linux. Une fois
+activé, on a accès à plusieurs distributions
+intégrant Bash.

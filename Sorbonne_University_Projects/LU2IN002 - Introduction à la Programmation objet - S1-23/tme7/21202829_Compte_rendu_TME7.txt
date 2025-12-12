@@ -1,0 +1,337 @@
+Exercice 49
+Q 49.1
+       +------------------+
+       |      Animal      |
+       +------------------+
+       | - nom: String    |
+       | - age: int       |
+       +------------------+
+       | + Animal(nom: String, age: int)   |
+       | + Animal(nom: String)             |
+       | + toString(): String              |
+       | + vieillir(): void                |
+       | + crier(): void                   |
+       +------------------+
+              /         \
+             /           \
++-----------------+   +-----------------+
+|   AnimauxAvecPattes|   | AnimauxSansPattes|
++-----------------+   +-----------------+
+| - nbPattes: int  |   | -              |
++-----------------+   +-----------------+
+ 		/         \
+               /           \
++-----------------+       +-----------------+
+|      Vache      |       |      Boa       |
++-----------------+       +-----------------+
+| - quantite_lait: double|| -              |
++-----------------+       +-----------------+
+
+Q 49.2
+public abstract class Animal{
+	private String nom;
+	private int age;
+
+	public Animal(String nom,int age){
+		this.nom = nom;
+		this.age = age;
+	}
+
+	public Animal(String nom){
+		this(nom,1);
+	}
+
+	public String toString(){
+		return "nom: " + nom + " age: " + age;
+	}
+
+	public void vieillir(){
+		age += 1;
+	}
+
+	public abstract String crier();
+}
+
+Q 49.3
+public abstract class AnimalAPatte extends Animal{
+	private final int patte;
+
+	public AnimalAPatte(String nom,int age,int patte){
+		super(nom,age);
+		this.patte = patte;
+	}
+
+	public AnimalAPatte(String nom,int patte){
+		this(nom,1,patte);
+	}
+
+	public String toString(){
+		return super.toString() + " c'est un animal a patte";
+	}
+
+	public int getPatte(){
+		return patte;
+	}
+}
+
+public class Vache extends AnimalAPatte{ 
+	private final double quantite_lait;
+
+	public Vache(String nom,int age){
+		super(nom,age,4);
+		quantite_lait = Math.random()*25 + 5;
+	}
+
+	public Vache(String nom){
+		super(nom,4);
+		quantite_lait = Math.random()*25 + 5;
+	}
+
+	public String toString(){
+		return "Vache " + super.toString() + " avec " + super.getPatte() + " pattes et produit le quantite du lait: " + quantite_lait;
+	}
+
+	public void vieillir(){
+		super.vieillir();
+	}
+
+	public String crier(){
+		return toString() + "Beuglement";
+	}
+}
+
+Q 49.4
+public abstract class AnimalSansPatte extends Animal{
+	public AnimalSansPatte(String nom,int age){
+		super(nom,age);
+	}
+
+	public AnimalSansPatte(String nom){
+		super(nom,1);
+	}
+
+	public String toString(){
+		return super.toString() + " c'est un animal sans patte";
+	}
+}
+
+public class Boa extends AnimalSansPatte{
+	public Boa(String nom,int age){
+		super(nom,age);
+	}
+
+	public Boa(String nom){
+		super(nom);
+	}
+
+	public String toString(){
+		return "Boa " + super.toString() + " sana pattes";
+	}
+
+	public void vieillir(){
+		super.vieillir();
+	}
+
+	public String crier(){
+		return toString() + "Siffle";
+	}
+}
+
+Q 49.5 & Q 49.6 & Q 49.7 & Q 49.8
+public class Menagerie{
+	private Animal[] tab;
+	private static int num = 0;
+
+	public Menagerie(int max){
+		tab = new Animal[max];
+	}
+
+	public void ajouter(Animal a){
+		if (num < tab.length){
+			tab[num] = a;
+			num += 1;
+		}else{
+			System.out.println("C'est déjà plein. Impossible d'ajouter l'animal");
+		}
+	}
+
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0;i < num;i++){
+			sb.append(tab[i].toString()).append("\n");
+        }
+        return sb.toString();
+	}
+
+	public void midi(){
+		for (int i = 0;i < num;i++){
+			tab[i].crier();
+		}
+	}
+
+	public void vieillirTous(){
+		for (int i = 0;i < num;i++){
+			tab[i].vieillir();
+		}
+	}
+
+	public static void main(String[] args) {
+        Menagerie menagerie = new Menagerie(5);
+
+        Vache vache = new Vache("Bella");
+        Boa boa = new Boa("Bob");
+        // Ajoutez d'autres animaux si nécessaire
+
+        menagerie.ajouter(vache);
+        menagerie.ajouter(boa);
+
+        System.out.println(menagerie);
+
+        menagerie.midi();
+        menagerie.vieillirTous();
+
+        System.out.println("Après le midi et le vieillissement :");
+        System.out.println(menagerie);
+    }
+}
+
+Exercice 50
+Q 50.1
+         Figure (classe abstraite)
+               |
+         Figure2D (classe abstraite)
+         /        |         |        \
+   Rectangle   Carre    Ellipse    Cercle
+   
+Q 50.2
+public abstract class Figure {
+    // Variables d'instance (double pour la taille)
+    protected double taille;
+
+    // Constructeur
+    public Figure(double taille) {
+        this.taille = taille;
+    }
+
+    // Méthode abstraite surface()
+    public abstract double surface();
+}
+
+public abstract class Figure2D extends Figure {
+    // Constructeur
+    public Figure2D(double taille) {
+        super(taille);
+    }
+
+    // Méthode abstraite perimetre()
+    public abstract double perimetre();
+}
+
+public class Rectangle extends Figure2D {
+    // Variables d'instance spécifiques à Rectangle (longueur et largeur)
+    private double longueur;
+    private double largeur;
+
+    // Constructeur
+    public Rectangle(double longueur, double largeur) {
+        super(longueur); // On utilise la longueur comme taille de la figure
+        this.longueur = longueur;
+        this.largeur = largeur;
+    }
+
+    // Implémentation de la méthode surface() pour Rectangle
+    public double surface() {
+        return longueur * largeur;
+    }
+
+    // Implémentation de la méthode perimetre() pour Rectangle
+    public double perimetre() {
+        return 2 * (longueur + largeur);
+    }
+}
+
+public class Carre extends Figure2D {
+    // Variable d'instance spécifique à Carre (côté)
+    private double cote;
+
+    // Constructeur
+    public Carre(double cote) {
+        super(cote); // On utilise le côté comme taille de la figure
+        this.cote = cote;
+    }
+
+    // Implémentation de la méthode surface() pour Carre
+    public double surface() {
+        return cote * cote;
+    }
+
+    // Implémentation de la méthode perimetre() pour Carre
+    public double perimetre() {
+        return 4 * cote;
+    }
+}
+
+public class Ellipse extends Figure2D {
+    // Variables d'instance spécifiques à Ellipse (demi-grand axe et demi-petit axe)
+    private double demiGrandAxe;
+    private double demiPetitAxe;
+
+    // Constructeur
+    public Ellipse(double demiGrandAxe, double demiPetitAxe) {
+        super(demiGrandAxe); // On utilise le demi-grand axe comme taille de la figure
+        this.demiGrandAxe = demiGrandAxe;
+        this.demiPetitAxe = demiPetitAxe;
+    }
+
+    // Implémentation de la méthode surface() pour Ellipse
+    public double surface() {
+        return Math.PI * demiGrandAxe * demiPetitAxe;
+    }
+
+    // Implémentation de la méthode perimetre() pour Ellipse
+    public double perimetre() {
+        return 2 * Math.PI * Math.sqrt((Math.pow(demiGrandAxe, 2) + Math.pow(demiPetitAxe, 2)) / 2);
+    }
+}
+
+public class Cercle extends Figure2D {
+    // Variable d'instance spécifique à Cercle (rayon)
+    private double rayon;
+
+    // Constructeur
+    public Cercle(double rayon) {
+        super(rayon); // On utilise le rayon comme taille de la figure
+        this.rayon = rayon;
+    }
+
+    // Implémentation de la méthode surface() pour Cercle
+    public double surface() {
+        return Math.PI * Math.pow(rayon, 2);
+    }
+
+    // Implémentation de la méthode perimetre() pour Cercle
+    public double perimetre() {
+        return 2 * Math.PI * rayon;
+    }
+}
+
+Q 50.3
+Le type de tableau doit être Figure.
+public class TestFigure {
+    public static void main(String[] args) {
+        Figure[] figures = new Figure[4];
+        figures[0] = new Rectangle(4, 5);
+        figures[1] = new Carre(3);
+        figures[2] = new Ellipse(2, 3);
+        figures[3] = new Cercle(4);
+
+        for (Figure figure : figures) {
+            System.out.println("Surface : " + figure.surface());
+            if (figure instanceof Figure2D) {
+                System.out.println("Périmètre : " + ((Figure2D) figure).perimetre());
+            }
+            System.out.println();
+        }
+    }
+}
+

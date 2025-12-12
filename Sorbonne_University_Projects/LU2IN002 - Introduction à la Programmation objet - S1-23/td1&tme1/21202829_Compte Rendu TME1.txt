@@ -1,0 +1,287 @@
+Exercice 4
+
+//Q4.2.1
+mkdir LU2IN002 // pour creer un document 
+
+//Q4.2.2
+cd LU2IN002 // pour acceder dans un document
+
+//Q4.2.3
+mkdir TME1 //pour creer un document TME1
+
+//Q4.2.4
+ls //lire le document
+TME1
+
+//Q4.2.5
+cd TME1
+
+//Q4.2.6
+pwd
+/users/nfs/Etu9/21202829/LU2IN002/TME1
+
+//Q4.3
+gedit MaClasse.java &
+/*Fichier "MaClasse.java" crée dans le répertoire courant. */
+
+//Q4.4
+a) En utilisant le Terminal pour chercher des commandes, celui-ci nous propose de compléter notre texte ou de parcourir les anciennes commandes grâce aux flèches directionnelles.
+b) Indenter un programme le rend plus lisible et plus facile à corriger, donc de gagner du temps.
+c) Sauvegarder régulièrement un programme évite d'en perdre une grande partie lors de crash et le compiler régulièrement permet aussi de repérer où se trouvent de potentielles erreurs.
+
+Exercice 5
+
+//Q5.1
+gedit Bonjour.java &
+
+public class Bonjour{
+	public static void main(String[] args){
+		System.out.println("Bonjour !");
+	}
+}
+
+//Q5.1.1
+a) la commande pour compiler le prog est "javac Bonjour.java"
+b) le nom du fichier créé par la compilation est "Bonjour.class"
+
+//Q5.1.2
+a) La commande "java Bonjour" est pour executer ce programme,et on a "Bonjour !"
+b) Le programme n'est pas exécuter, le message d'erreur est : "Erreur : impossible de trouver ou de charger la classe principale Bonjour
+
+ls
+Bonjour.class  Bonjour.java
+rm Bonjour.class //rm pour supprimer un ficher
+
+ls
+Bonjour.java
+java Bonjour
+Erreur : impossible de trouver ou de charger la classe principale Bonjour
+Causé par : java.lang.ClassNotFoundException: Bonjour
+
+//Q5.2.1
+javac Bonjour.java
+Bonjour.java:2: error: ';' expected
+	public stat ic void main(String[] args){
+	              ^
+1 error
+
+a) Aucun numéro de ligne n'est indiqué par le message d'erreur
+b) L'erreur est détecté juste avant "void".
+
+//Q5.2.2
+Bonjour.java:3: error: unclosed string literal
+		System.out.println("Bonjour !);
+		                   ^
+Bonjour.java:3: error: ';' expected
+		System.out.println("Bonjour !);
+		                               ^
+Bonjour.java:5: error: reached end of file while parsing
+}
+ ^
+3 errors
+
+3 erreurs sont détecté par le compilateur.
+
+//Q5.2.3
+java Bonjour
+Erreur : impossible de trouver ou de charger la classe principale Bonjour
+Causé par : java.lang.ClassNotFoundException: Bonjour
+
+Erreur : la méthode principale est introuvable dans la classe Bonjour, définissez la méthode principale comme suit :
+   public static void main(String[] args)
+ou une classe d'applications JavaFX doit étendre javafx.application.Application
+
+La compilation réussit mais l'exécution échoue. Cela s'explique par le fait que "Main" est considéré comme une méthode différente de "main". 
+
+//Q5.2.4
+javac Bonjour.java
+Bonjour.java:2: error: ';' expected
+	public static void main(String[] args)
+	                                      ^
+Bonjour.java:5: error: class, interface, or enum expected
+}
+^
+2 errors
+
+erreur : class, interface, or enum expected
+
+//Q5.2.5
+supprimer le public,la compliation reussit,et on peut executer le programme
+
+//Q5.2.6
+java Bonjour
+Il peut complier mais peut pas executer
+Erreur : la méthode principale n'est pas static dans la classe Bonjour, définissez la méthode principale comme suit :
+   public static void main(String[] args)
+
+Exercice 6
+
+//Q6.1
+public class Segment{
+	private int extX;
+	private int extY;
+
+	public Segment(int extX,int extY){
+		this.extX = extX;
+		this.extY = extY;
+	}
+
+	public int longueur(){
+		if (extX < extY){
+			return extY - extX;
+		}
+		return extX - extY;
+	}
+
+	public String toString(){
+		return "[" + extX + "," + extY +"]";
+	}
+}
+
+//Q6.2
+public class TestSegment{
+	public static void main(String[] args){
+		Segment seg1 = new Segment(6,8);
+		Segment seg2 = new Segment(12,5);
+		int longueur1 = seg1.longueur();
+		int longueur2 = seg2.longueur();
+		if (longueur1 > longueur2){
+			System.out.println("le premier segment est plus long: " + seg1);
+		}
+		System.out.println("le deuxième segment est plus long: " + seg2);
+	}
+}
+
+Remarque : si on definie pas la methode toString()
+il s'affiche Segment@6ed3ef1,c'est la position du memoire de cette variable
+avce la methode toString()
+il s'affiche Segment [12,5]
+
+Exercice 7
+
+//Q7.1
+public class Villageois{
+	private String nom;
+	private double poids;
+	private boolean malade;
+	private String ouiounon;
+
+//Q7.2
+	public Villageois(String nom,double poids,boolean malade){
+		this.nom = nom;
+		this.poids = poids;
+		this.malade = malade;
+	}
+
+	public Villageois(String nomVillageois){
+		this.nom = nomVillageois;
+		this.poids = Math.random()*(150 - 50)+50;
+		this.malade = Math.random() < 0.2;
+		if (malade == true){
+			ouiounon = "Oui";
+		}else{
+			ouiounon = "Non";
+		}
+	}
+
+//Q7.7
+	public double poidsSouleve(){
+		if (malade == true){
+			return this.poids/4;
+		}else{
+			return this.poids/3;
+		}
+	}
+
+//Q7.6
+	public String getNom(){
+		return nom;
+	}
+
+	public double getPoids(){
+		return poids;
+	}
+
+	public boolean getMalade(){
+		return malade;
+	}
+
+//Q7.5 & Q7.8
+	public String toString(){
+		String poid = String.format("%.2f",poids);
+		double ps = poidsSouleve();
+		String poidsou = String.format("%.1f",ps);
+		return "Villageois : " + nom + " , Poids: " + poid + " kg, Malade: " + ouiounon + " ,peut soulever " + poidsou + " kg";
+	}
+}
+
+//Q7.3
+public class TestVillageois {
+    public static void main(String[] args) {
+        Villageois villageois1 = new Villageois("Alice");
+        Villageois villageois2 = new Villageois("Bob");
+        Villageois villageois3 = new Villageois("Charlie");
+        Villageois villageois4 = new Villageois("David");
+
+        System.out.println(villageois1);
+        System.out.println(villageois2);
+        System.out.println(villageois3);
+        System.out.println(villageois4);
+
+//Q7.9            
+        double poidstotale = villageois1.poidsSouleve() + villageois2.poidsSouleve() + villageois3.poidsSouleve() + villageois4.poidsSouleve();
+        System.out.printf("Le poids totale est : %.2f kg\n",poidstotale);
+        if (poidstotale >= 100){
+            System.out.println("Ils peut déplacer le rocher qui pèse 100kg.");
+        }else{
+            System.out.println("Ils ne peut pas déplacer le rocher qui pèse 100kg.");
+        }
+    }
+}
+
+//Q7.4
+21202829@ppti-14-308-05:/users/nfs/Etu9/21202829/nomDuRepertoire/TME1$ javac Villageois.java
+21202829@ppti-14-308-05:/users/nfs/Etu9/21202829/nomDuRepertoire/TME1$ javac TestVillageois.java
+21202829@ppti-14-308-05:/users/nfs/Etu9/21202829/nomDuRepertoire/TME1$ java TestVillageois
+Villageois@e73f9ac
+Villageois@61064425
+Villageois@7b1d7fff
+Villageois@299a06ac
+
+Exercice 8
+
+public class Lettre{
+	private char carac;
+
+	public Lettre(char c){
+		carac = c;
+	}
+
+	public char getCarac(){
+		return carac;
+	}
+
+	public int getCodeAscii(){
+		return (int)carac;
+	}
+}
+
+//Q8.1
+public class TestLettre {
+    public static void main(String[] args) {
+        for (char c = 'a'; c <= 'z'; c++) {
+        	Lettre carac1 = new Lettre(c);
+            System.out.print(carac1.getCodeAscii() + " ");
+        }
+
+        System.out.println();
+//Q8.2
+        for (char c = 'a'; c <= 'z'; c++) {
+        	Lettre carac2 = new Lettre(c);
+        	System.out.print(carac2.getCarac() + " ");
+        	if ((carac2.getCarac() - 'a' + 1) % 5 == 0) 
+            	System.out.println();
+        }
+    }
+}
+

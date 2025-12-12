@@ -1,0 +1,50 @@
+Rappels préliminaires
+
+La syntaxe de base du if et des boucles en Java est assez similaire à celle du langage C.
+
+Par exemple, voici ci-après les instructions pour afficher les entiers i pairs entre 0 et 10 compris. On rappelle qu'en Java, l'instruction pour afficher est : System.out.println(...);
+
+
+for(int i=0;i<=10;i++) {
+	if ( i % 2 == 0) {
+		System.out.println("i="+i+" est pair");
+	}
+}
+
+Ces instructions affichent :
+
+i=0 est pair
+i=2 est pair
+i=4 est pair
+i=6 est pair
+i=8 est pair
+i=10 est pair
+
+int x=(int)(3.5+3/4);
+x vaut 3,car 3/4 fait 0 et il y a un cast qui transforme le double en entier
+La réponse correcte est : x vaut 3
+
+Écrire une boucle for qui affiche les caractères de x1 à x2 compris.
+Par exemple, soit char x1='f'; char x2='j';, cette boucle doit afficher :
+fghij
+Aide : utiliser System.out.print qui affiche sans retour à la ligne.
+// On suppose que l'on est déjà dans un main
+// et que x1 et x2 ont déjà été déclarés et initialisés
+// Par exemple : char x1='f'; char x2='j';
+for(char i = x1; i <= x2;i++){
+    System.out.print(i);
+}
+
+Écrire une boucle while qui affiche les caractères de x1 à x2 compris.
+Par exemple, soit char x1='f'; char x2='j';, cette boucle doit afficher :
+fghij
+Aide : utiliser System.out.print (sans "ln" à la fin) qui affiche sans retour à la ligne.
+// On suppose que l'on est déjà dans un main
+// et que x1 et x2 ont déjà été déclarés et initialisés
+// Par exemple : char x1='f'; char x2='j';
+char i = x1;
+while(i<=x2){
+    System.out.print(i);
+    i += 1;
+}
+

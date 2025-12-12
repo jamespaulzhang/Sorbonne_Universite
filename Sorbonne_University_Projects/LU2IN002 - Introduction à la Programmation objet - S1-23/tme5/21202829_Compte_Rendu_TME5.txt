@@ -1,0 +1,282 @@
+Exercice 35
+Q 35.1
+public class Cone{
+	private double r;
+	private double h;
+	public final static double PI = 3.14159;
+	private static int nbCones = 0;
+
+Q 35.2
+public Cone(double r, double h){
+		this.r = r;
+		this.h = h;
+		this.nbCones += 1;
+	}
+
+	public Cone(){
+		this(Math.random()*10,Math.random()*10);
+	}
+
+	public double getVolume(){
+		return (1.0 / 3) * PI * r * r * h;
+	}
+
+	public String toString(){
+		return "Cone r = " + r + " h = " + h + " V = " + getVolume();
+	}
+
+	public static int getnbCones(){
+		return nbCones;
+	} 
+
+}
+
+Q 35.3
+public class TestCone{
+	public static void main(String[] args){
+		System.out.println(Cone.getnbCones()); //Il s'affiche 0
+		Cone c1 = new Cone(5.4,7.2);
+		System.out.println(c1);
+		Cone c2 = new Cone();
+		System.out.println(c2);
+		System.out.println(Cone.getnbCones()); //Il s'affiche 2
+	}
+}
+
+Exercice 36
+Q 36.1
+public class Alea{
+	public static char lettre(){
+		return (char)(Math.random()*('z' - 'a' + 1) + 'a');
+	}
+
+	public static String chaine(){
+		String s = "";
+		for(int i = 0; i < 10; i++){
+			s += lettre();
+		}
+		return s;
+	}
+
+Q 36.2
+parce que les methodes lettre() et chaine() depend pas l'objet, elle sont les methode de la classes
+
+Q 36.3
+Creer un constructeur prive, pour creer que les variables instances dans la classe Alea
+public class Alea{
+	//mettre un constructeur private pour empecher creer d'instance dans l'autre classe
+	private Alea(){
+	}
+
+	public static char lettre(){
+		return (char)(Math.random()*('z' - 'a' + 1) + 'a');
+	}
+
+	public static String chaine(){
+		String s = "";
+		for(int i = 0; i < 10; i++){
+			s += lettre();
+		}
+		return s;
+	}
+
+	public static void main(String[] args){
+		System.out.println(Alea.lettre());
+		System.out.println(Alea.chaine());
+	}
+}
+
+Q 36.4
+public class TestAlea{
+	public static void main(String[] args){
+		System.out.println(Alea.lettre());
+		System.out.println(Alea.chaine());
+		//Alea a = new Alea();  
+	}
+}
+
+Exercice 37
+Q 37.1.1
+public class Personne{
+	private String nom;
+	private static int nbPersonnes = 0;
+
+	public Personne(){
+		nbPersonnes += 1;
+		nom = "Individu" + nbPersonnes;
+	}
+
+	public static int getNbPersonnes(){
+		return nbPersonnes;
+	}
+
+	public String toString(){
+		return nom;
+	}
+}
+
+Q 37.1.2
+public class TestProjet{
+	public static void main(String[] args){
+		System.out.println(Personne.getNbPersonnes());
+
+		Personne p1 = new Personne();
+		Personne p2 = new Personne();
+
+		System.out.println(p1);
+		System.out.println(p2);
+
+		System.out.println(Personne.getNbPersonnes());
+	}
+}
+
+Il s'affiche :
+0
+Individu1
+Individu2
+2
+
+Q 37.1.3
+public class Personne{
+	private String nom;
+	private static char lettre = 'A';
+	private static int nbPersonnes = 0;
+
+	public Personne(){
+		nbPersonnes += 1;
+		nom = "Individu" + lettre;
+		lettre += 1;
+	}
+
+	public static int getNbPersonnes(){
+		return nbPersonnes;
+	}
+
+	public String toString(){
+		return nom;
+	}
+}
+
+Il s'affiche : 
+0
+IndividuA
+IndividuB
+2
+
+Q 37.2
+public class Trio{
+	public int numero;
+	public static int compteur = 0;
+	public Personne[] trio;
+
+	public Trio(){
+		trio = new Personne[3];
+		trio[0] = new Personne();
+		trio[1] = new Personne();
+		trio[2] = new Personne();
+		compteur += 1;
+		numero = compteur;
+	}
+
+	public String toString(){
+		return "Trio " + numero + " : " + trio[0] + " " + trio[1] + " " + trio[2];
+	}
+
+	public static int getcompteur(){
+		return compteur;
+	}
+}
+
+Il s'affiche :
+0
+IndividuA
+IndividuB
+2
+Trio 1 : IndividuC IndividuD IndividuE
+
+Q 37.3
+public class Projet{
+	private String projet;
+	private Trio t;
+	private static int nbprojet = 0;
+
+	public Projet(String projet){
+		t = new Trio();
+		this.projet = projet;
+		nbprojet += 1;
+	}
+
+	public String toString(){
+		return "Projet " + projet + " " + t;
+	}
+
+	public static int getNbprojet(){
+		return nbprojet;
+	}
+
+}
+
+0
+IndividuA
+IndividuB
+2
+Projet P3X-774 Trio 1 : IndividuC IndividuD IndividuE
+
+Q 37.4
+public class TestProjet{
+	public static void main(String[] args){
+		System.out.println(Personne.getNbPersonnes());
+
+		Personne p1 = new Personne();
+		Personne p2 = new Personne();
+
+		System.out.println(p1);
+		System.out.println(p2);
+
+		System.out.println(Personne.getNbPersonnes());
+
+		//Trio t1 = new Trio();
+		//Trio t2 = new Trio();
+		//System.out.println(t1);
+		//System.out.println(t2);
+
+		Projet projet1 = new Projet("P3X-774");
+		Projet projet2 = new Projet("P3R-233");
+		System.out.println(projet1);
+		System.out.println(projet2);
+
+		System.out.println(Personne.getNbPersonnes());
+		System.out.println(Trio.getcompteur());
+		System.out.println(Projet.getNbprojet());
+	}
+}
+
+0
+IndividuA
+IndividuB
+2
+Projet P3X-774 Trio 1 : IndividuC IndividuD IndividuE
+Projet P3X-774 Trio 2 : IndividuF IndividuG IndividuH
+
+Q 37.5
+Dans la classe Projet,on ajoute:
+	public Projet(){
+		this(Alea.chaine());
+	}
+
+et dans la classe TestProjet,on ajoute:
+		Projet projet3 = new Projet();
+		System.out.println(projet3);
+
+Il s'affiche 
+0 //nb du personne au debut
+IndividuA
+IndividuB
+2 //nb du personne creer par objet de type Personne p1 et p2
+Projet P3X-774 Trio 1 : IndividuC IndividuD IndividuE
+Projet P3R-233 Trio 2 : IndividuF IndividuG IndividuH
+Projet fpqzvsylrv Trio 3 : IndividuI IndividuJ IndividuK //nom de projet aleatoire par rappeler le mothode de la classe Alea(Une methode static)
+//trois objets qui contient 3 trios et 9 personnes
+11 //nb du personne totale crees
+3 //nb du trios
+3 //nb du projets

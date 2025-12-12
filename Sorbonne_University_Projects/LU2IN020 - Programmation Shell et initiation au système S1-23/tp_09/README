@@ -1,0 +1,226 @@
+tp_09
+Numero etudiant:21202829
+
+Exercice 1
+Question 1:
+#!/bin/bash
+
+no_exit() {
+    echo "Il ne doit en rester qu'un."
+}
+
+trap 'no_exit' SIGINT
+
+while true; do
+    echo "Il ne doit en rester qu'un."
+    sleep 1
+done
+
+./highlander.sh 
+./highlander.sh: ligne 4 : trap: Il ne doit en rester qu'un: message de signale inutile
+Il ne doit en rester qu'un.
+Il ne doit en rester qu'un.
+Il ne doit en rester qu'un.
+Il ne doit en rester qu'un.
+^C
+Il ne doit en rester qu'un.
+Il ne doit en rester qu'un.
+Il ne doit en rester qu'un.
+Il ne doit en rester qu'un.
+
+
+Question 2:
+On utilise la commande : ps aux | grep highlander.sh ,pour trouver le PID du processus qui est en traine de lancer le script: highlander.sh
+et on utilise la commande : kill -SIGTERM <PID> ,pour tuer le processus qui lance le script: highlander.sh 
+
+Ou plus simplement avec la commande: pkill -f highlander.sh ,il peut tuer le processus tout de suite sans besion de savoir son PID
+
+Question 3:
+kill -L
+ 1) SIGHUP	 2) SIGINT	 3) SIGQUIT	 4) SIGILL	 5) SIGTRAP
+ 6) SIGABRT	 7) SIGBUS	 8) SIGFPE	 9) SIGKILL	10) SIGUSR1
+11) SIGSEGV	12) SIGUSR2	13) SIGPIPE	14) SIGALRM	15) SIGTERM
+16) SIGSTKFLT	17) SIGCHLD	18) SIGCONT	19) SIGSTOP	20) SIGTSTP
+21) SIGTTIN	22) SIGTTOU	23) SIGURG	24) SIGXCPU	25) SIGXFSZ
+26) SIGVTALRM	27) SIGPROF	28) SIGWINCH	29) SIGIO	30) SIGPWR
+31) SIGSYS	34) SIGRTMIN	35) SIGRTMIN+1	36) SIGRTMIN+2	37) SIGRTMIN+3
+38) SIGRTMIN+4	39) SIGRTMIN+5	40) SIGRTMIN+6	41) SIGRTMIN+7	42) SIGRTMIN+8
+43) SIGRTMIN+9	44) SIGRTMIN+10	45) SIGRTMIN+11	46) SIGRTMIN+12	47) SIGRTMIN+13
+48) SIGRTMIN+14	49) SIGRTMIN+15	50) SIGRTMAX-14	51) SIGRTMAX-13	52) SIGRTMAX-12
+53) SIGRTMAX-11	54) SIGRTMAX-10	55) SIGRTMAX-9	56) SIGRTMAX-8	57) SIGRTMAX-7
+58) SIGRTMAX-6	59) SIGRTMAX-5	60) SIGRTMAX-4	61) SIGRTMAX-3	62) SIGRTMAX-2
+63) SIGRTMAX-1	64) SIGRTMAX
+
+Avec la commande :sudo apt-get install manpages-posix
+On peut installer le man de trap
+et dans le man, on peut savoir que : trap — trap signals
+
+Donc on peut modifier notre script highlander.sh comme suivant:
+#!/bin/bash
+
+no_exit() {
+    echo "Il ne doit en rester qu'un."
+}
+
+# Ignore tous les signales dans la liste qui peut obtenir par la commande : kill -L
+for ((sig=1; sig <= 64; sig++)); do
+    trap 'no_exit' $sig
+done
+
+while true; do
+    echo "Il ne doit en rester qu'un."
+    sleep 1
+done
+
+Exercice 2:
+Question 1:
+dd if=/dev/urandom of=/tmp/iss bs=1b count=5000000
+记录了5000000+0 的读入
+记录了5000000+0 的写出
+2560000000字节（2,6 GB，2,4 GiB）已复制，22,855 s，112 MB/s
+Cette commande utilise dd pour copier des données depuis /dev/urandom vers le fichier /tmp/iss. Elle écrit 5 000 000 octets (1 octet à la fois)
+
+Question 2:
+Dans le premier termminal:
+dd if=/dev/urandom of=/tmp/iss bs=1b count=5000000
+
+Dans le deuxieme terminal:
+# Trouver le PID du processus dd
+pid=$(pgrep -n dd)
+
+# Envoyer régulièrement un signal SIGUSR1 au processus dd
+while kill -USR1 $pid; do sleep 1; done
+
+Cela enverra périodiquement le signal SIGUSR1 au processus dd pour afficher l'état d'avancement.
+
+Question 3:
+#!/bin/bash
+
+# Lancer dd en arrière-plan
+dd if=/dev/urandom of=/tmp/iss bs=1b count=5000000 &
+
+# Attendre une seconde
+sleep 1
+
+# Envoyer un signal SIGUSR1 au processus dd
+pid=$(pgrep -n dd)
+kill -USR1 $pid
+
+# Attendre la fin de la commande dd
+wait $!
+
+# Supprimer le fichier /tmp/iss généré
+rm /tmp/iss
+
+Ce script lance dd en arrière-plan, attend une seconde, envoie un signal SIGUSR1 au processus dd, attend la fin de la commande dd, puis supprime le fichier généré.
+
+Question 4:
+#!/bin/bash
+
+# Lancer dd en arrière-plan
+dd if=/dev/urandom of=/tmp/iss bs=1b count=5000000 status=progress &
+
+# Afficher l'avancement toutes les secondes
+while pidof dd >/dev/null; do
+    sleep 1
+    pkill -USR1 dd
+done
+
+Ce script lance dd en arrière-plan avec l'option status=progress pour afficher l'avancement. Ensuite, il envoie périodiquement le signal SIGUSR1 à dd pour actualiser l'affichage toutes les secondes jusqu'à ce que la commande soit terminée.
+
+Exercice 3
+Question 1
+#!/bin/bash
+
+if [ $# -ne 1 ]; then
+  echo "Usage: $0 <nombre>"
+  exit 1
+fi
+
+n=$1
+
+if [ $n -le 0 ]; then
+  echo "Le nombre doit être strictement positif."
+  exit 1
+fi
+
+spaces=""
+for ((i = 0; i < n; i++)); do
+  spaces+=" "
+done
+
+echo "Ola :$spaces O"
+
+if [ $n -gt 1 ]; then
+  ./chain.sh $((n-1))
+fi
+
+Question 2
+#!/bin/bash
+
+if [ $# -ne 1 ]; then
+  echo "Usage: $0 <nombre>"
+  exit 1
+fi
+
+n=$1
+
+if [ $n -le 0 ]; then
+  echo "Le nombre doit être strictement positif."
+  exit 1
+fi
+
+counter=0
+while true; do
+  spaces=""
+  for ((i = n; i > counter; i--)); do
+    spaces+=" "
+  done
+
+  echo "Ola :${spaces:0:-1} O" &
+
+  # Utilisation de wait pour attendre que tous les processus en arrière-plan se terminent
+  wait
+
+  ((counter++))
+
+  if [ $counter -ge $n ]; then
+    counter=0
+  fi
+
+  sleep 1  # Ajouter une pause pour contrôler la fréquence d'affichage
+done
+
+Question 3
+#!/bin/bash
+
+if [ $# -ne 1 ]; then
+  echo "Usage: $0 <nombre>"
+  exit 1
+fi
+
+n=$1
+counter=0
+
+if [ $n -le 0 ]; then
+    echo "Le nombre doit être supérieur à zéro."
+    exit 1
+fi
+
+trap 'echo "Ola : O" && pkill -SIGCONT -P $$' SIGCONT
+
+if [ $n -eq 1 ]; then
+    sleep 1
+    pkill -SIGCONT -P $$
+    wait
+fi
+
+while [ $counter -lt 10 ]; do
+    ./ring.sh $((n - 1)) &
+    wait
+    sleep 1
+    pkill -SIGCONT -P $$
+    wait
+    counter=$((counter + 1))
+done
+

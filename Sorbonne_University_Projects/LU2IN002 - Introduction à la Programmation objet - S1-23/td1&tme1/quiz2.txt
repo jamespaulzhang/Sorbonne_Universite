@@ -1,0 +1,8 @@
+abcDef() : Appel de méthode (AM)
+true : Mot réservé (R)
+abcDef : Variable (V)
+AbcDef : Nom d'une classe (NC)
+AbcDef() : Appel à un constructeur (AC)
+String : Mot réservé (R)
+False : Variable (V)
+ABCD : Constante (CST)

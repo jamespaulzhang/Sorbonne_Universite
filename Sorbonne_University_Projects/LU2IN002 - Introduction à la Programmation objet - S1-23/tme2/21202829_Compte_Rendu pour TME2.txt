@@ -1,0 +1,223 @@
+//Exercice 13
+
+//Q13.1
+public class AdresseWeb{
+	//Des chaines de caracteres
+	private String protocole;
+	private String domaine;
+	private String chemin;
+	
+	//Premier constructeur qui prend en parametre un protocole,un domaine et un chemin
+	public AdresseWeb(String protocole,String domaine,String chemin){
+		this.protocole = protocole;
+		this.domaine = domaine;
+		this.chemin = chemin;
+	}
+	
+	//Deuxieme constructeur qui prend en parametre un domaine et un chemain
+	public AdresseWeb(String domaine,String chemin){
+		this("http",domaine,chemin);
+	}
+	
+	//Troisieme constructeur qui prend en parametre un domaine
+	public AdresseWeb(String domaine){
+		this(domaine,"");
+	}
+	
+	//Methode String toString() qui retourne L'URL
+	public String toString(){
+		return protocole + "://www." + domaine + chemin;
+	}
+}
+
+//Q13.2
+public class TestAdresseWeb{
+	public static void main(String[] args){
+		AdresseWeb web1 = new AdresseWeb("ftp","site.fr","/dir");
+		AdresseWeb web2 = new AdresseWeb("site.fr","/dir/page1.html");
+		AdresseWeb web3 = new AdresseWeb("site.fr");
+
+		System.out.println(web1);
+		System.out.println(web2);
+		System.out.println(web3);
+	}
+}
+
+a)Ca sert modifier une fonction sans remettre en cause l'existant
+b)"this" peut nous ai1der d'eviter reecrire l'initialisation de chaque variable d'instance et on peut l'appel this() qui prend le type de premier constructeur
+
+//Exercice 14
+
+//Q14.1
+public class Coureur{
+	private int numDossard;
+	private double tempsAu100;
+	private boolean possedeTemoin;
+//Q14.2
+	public Coureur(int numDossard){
+		this.numDossard = numDossard;
+		this.tempsAu100 = Math.random()*(4) + 12;
+		this.possedeTemoin = false;
+	}	
+
+	public Coureur(){
+		this((int)(Math.random()*(1000 - 1 + 1) + 1));
+	}
+
+//Q14.4
+	public int getNumDossard(){
+		return numDossard;
+	}
+
+	public double getTempsAu100(){
+		return tempsAu100;
+	}
+
+	public boolean getPossedeTemoin(){
+		return possedeTemoin;
+	}
+
+	void setPossedeTemoin(boolean possedeTemoin){
+		this.possedeTemoin = possedeTemoin;
+	}
+
+	public String toString(){
+		String s = "Coureur " + numDossard + " tempsAu100: " + String.format("%.2f",tempsAu100) + "s au 100m possedeTemoin: ";
+		if (possedeTemoin)
+			return "Coureur " + numDossard + " possedeTemoin: Oui";
+		return s + "Non";
+	}
+
+//Q14.5
+	void passeTemoin(Coureur c){
+		System.out.println("moi,  coureur " + this.numDossard + ", je passe le temoin au coureur " + c.numDossard);
+		setPossedeTemoin(this.possedeTemoin);
+		setPossedeTemoin(c.possedeTemoin);		
+	}
+
+	void courir(){
+		System.out.println("je suis le coureur " + this.numDossard + " et je cours");
+	}
+}
+
+//Q14.3
+public class TestCoureur{
+	public static void main(String[] args){
+		Coureur c1 = new Coureur();
+		Coureur c2 = new Coureur();
+		Coureur c3 = new Coureur();
+		Coureur c4 = new Coureur();
+
+//Q14.6
+		System.out.println("Faire courir en relais 4 fois 100m les quatre coureurs dans l'ordre c1,c2,c3,c4");
+
+		c1.setPossedeTemoin(true);
+		System.out.println(c1);
+		c1.courir();
+		c1.passeTemoin(c2);
+		c1.setPossedeTemoin(false);
+		System.out.println(c1);
+
+		c2.setPossedeTemoin(true);
+		System.out.println(c2);
+		c2.courir();
+		c2.passeTemoin(c3);
+		c2.setPossedeTemoin(false);
+		System.out.println(c2);
+
+		c3.setPossedeTemoin(true);
+		System.out.println(c3);
+		c3.courir();
+		c3.passeTemoin(c4);
+		c3.setPossedeTemoin(false);
+		System.out.println(c3);
+
+		c4.setPossedeTemoin(true);
+		System.out.println(c4);
+		c4.courir();
+
+		double temps_total = c1.getTempsAu100() + c2.getTempsAu100() + c3.getTempsAu100() + c4.getTempsAu100();
+		System.out.println("Temps total pour 400m est: " + String.format("%.2f",temps_total) + "s");
+	}
+} 
+
+//Exercice 15
+//Q15.1
+public class Complexe{
+	private double reelle;
+	private double imag;
+
+	public Complexe(double reelle,double imag){
+		this.reelle = reelle;
+		this.imag = imag;
+	}
+
+	public Complexe(){
+		this(Math.random()*(4) + (-2),Math.random()*(4) + (-2));
+	}
+
+//Q15.2
+	public String toString(){
+		if (this.reelle == 0)
+			return String.format("%.2f",imag) + "i";
+		if (this.reelle == 0 && this.imag == 0)
+			return "0";
+		if (this.imag == 0)
+			return String.format("%.2f",reelle);
+		if (this.imag > 0)
+			return "(" + String.format("%.2f",reelle) + "+" + String.format("%.2f",imag) + "i)";
+		return "(" + String.format("%.2f",reelle) + String.format("%.2f",imag) + "i)";
+	}
+
+	public String estReel(){
+		if (this.imag == 0)
+			return "Il est en fait reelle";
+		return "Il est complexe"; 
+	}
+
+	public void addition(Complexe c){
+		this.reelle += c.reelle;
+		this.imag += c.imag;
+	}
+
+	public void multiplication(Complexe c){
+    	double nouvelleReelle = this.reelle * c.reelle - this.imag * c.imag;
+    	double nouvelleImag = this.reelle * c.imag + this.imag * c.reelle;
+
+    	this.reelle = nouvelleReelle;
+    	this.imag = nouvelleImag;
+	}
+}
+
+//Q15.3
+public class TestComplexe{
+	public static void main(String[] args){
+		Complexe c = new Complexe();
+		Complexe c2 = new Complexe();
+		Complexe c3 = new Complexe();
+		System.out.println("Le complexe c: " + c.estReel());
+		System.out.println("Le complexe c2: " + c2.estReel());
+		System.out.println("Le complexe c3: " + c3.estReel());
+		System.out.println("Le complexe c: " + c);
+		System.out.println("Le complexe c2: " + c2);
+		System.out.println("Le complexe c3: " + c3);
+		c.addition(c2);
+		System.out.println("L'addition de c et c2: " + c);
+		c.multiplication(c3);
+		System.out.println("Le multiplication de (c+c2) avec c3: " + c);
+
+		//Test i^2 = -1?
+		Complexe c4 = new Complexe(0,1);
+		Complexe c5 = c4;
+		c4.multiplication(c5);
+		System.out.println("Le complexe i^2: " + c4.estReel());
+		System.out.println("i^2 = " + c4);
+
+		//Test (1 + i) × (2 + 2i) = 4i?
+		Complexe c6 = new Complexe(1,1);
+		Complexe c7 = new Complexe(2,2);
+		c6.multiplication(c7);
+		System.out.println("Le complexe (1 + i) × (2 + 2i): " + c6.estReel());
+		System.out.println("(1 + i) × (2 + 2i) = " + c6);
+	}
+}

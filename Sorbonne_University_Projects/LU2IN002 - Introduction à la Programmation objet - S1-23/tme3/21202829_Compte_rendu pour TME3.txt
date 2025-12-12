@@ -1,0 +1,333 @@
+TME3
+Exercice 19
+Q 19.1
+Le diagramme de classe :
+Un tracteur est compose de 4 roues et d'une cabine
+roues-------->tracteur<----------cabine
+
+Q 19.2
+public class Roue{
+	private int diametre;
+	public Roue(int diametre){
+		this.diametre = diametre;
+	}
+	public Roue(){
+		this(60);
+	}
+	public String toString(){
+		return diametre + "cm";
+	}
+}
+
+Q 19.3
+public class TestTracteur{
+	public static void main(String[] args){
+		Roue r1 = new Roue(120);
+		Roue r2 = new Roue(120);
+		Roue r3 = new Roue();
+		Roue r4 = new Roue();
+
+		System.out.println(r1);
+		System.out.println(r2);
+		System.out.println(r3);
+		System.out.println(r4);
+	}
+}
+
+Q 19.4
+public class Cabine{
+	private int volume;
+	private String couleur;
+
+	public Cabine(int volume,String couleur){
+		this.volume = volume;
+		this.couleur = couleur;
+	}
+
+	public String toString(){
+		return volume + "cm^3, " + couleur; 
+	}
+
+	public void setCouleur(String couleur){
+		this.couleur = couleur;
+	}
+
+	public Cabine(Cabine acopier){
+		this.volume = acopier.volume;
+		this.couleur = acopier.couleur;
+	}
+}
+
+Q 19.5
+	Cabine c = new Cabine(3,"Bleue");
+	System.out.println(c);
+
+Q 19.6
+public class Tracteur{
+	private Cabine c;
+	private Roue r1,r2,r3,r4;
+
+	public Tracteur(Cabine c,Roue r1,Roue r2,Roue r3,Roue r4){
+		this.c = c;
+		this.r1 = r1;
+		this.r2 = r2;
+		this.r3 = r3;
+		this.r4 = r4;
+	}
+
+	public String toString(){
+		return "les diametres des r1-4 sont: " + r1 + " " + r2 + " " + r3 + " " + r4 + " ,et le volume et la couleur de la cabine c est: " + c;
+	}
+
+	public void peindre(String couleur){
+		c.setCouleur(couleur);
+	}
+}
+
+Q 19.7
+	Tracteur t1 = new Tracteur(c,r1,r2,r3,r4);
+	System.out.println(t1);
+
+Q 19.8
+La couleur de la cabine de t1 il est "Rouge",la raision pour laquelle la couleur de t1 a ete change ,car il y a 2 objets Tracteur mais 1 seul objet Cabine,
+Il faut copier la Cabnie en ajoutent un constructeur de copie de Cabine
+pulic Cabine (Cabine acopier){
+	this.x = aCopier.x;
+	this.y = aCopier.y;
+}
+
+Il faut copier la Roue en ajoutent un constructeur de copie de Roue
+public Roue(Roue acopier){
+	this.diametre = acopier.diametre;
+}
+
+et il faut aussi ajouter un constructeur de copie de Tracteur
+public Tracteur(Tracteur acopier){
+	this.c = new Cabine(acopier.c);
+	this.r1 = new Roue(acopier.r1);
+	this.r2 = new Roue(acopier.r2);
+	this.r3 = new Roue(acopier.r3);
+	this.r4 = new Roue(acopier.r4);
+}
+
+et on le test dans la classe TestTracteur:
+	Tracteur t2 = new Tracteur(t1);
+	t2.peindre("Rouge");
+	System.out.println(t2);
+	System.out.println(t1);
+Il s'affiche bien la couleur de t1 rest "Blue" et la couleur de t2 est change a "Rouge"
+
+Exercice 20 
+Q 20.1
+public class Point{
+	private int posx;
+	private int posy;
+
+	public Point(int posx,int posy){
+		this.posx = posx;
+		this.posy = posy;
+	}
+
+	public Point(){
+		this((int)(Math.random()*10),(int)(Math.random()*10));
+	}
+
+	public void setPosx(int posx){
+		this.posx = posx;
+	}
+
+	public void setPosy(int posy){
+		this.posy = posy;
+	}
+
+	public int getPosx(){
+		return posx;
+	}
+
+	public int getPosy(){
+		return posy;
+	}
+
+	public String toString(){
+		return "(" + posx + ", " + posy + ")";
+	}
+
+	public double distance(Point p) {
+    	int dx = p.getPosx() - this.getPosx();
+    	int dy = p.getPosy() - this.getPosy();
+    	return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    public void deplaceToi(int newx, int newy){
+    	this.posx = newx;
+    	this.posy = newy;
+    }
+}
+
+Q 20.2
+public class TestTriangle{
+	public static void main(String[] args){
+		Point p1 = new Point();
+		Point p2 = new Point();
+		double d = p1.distance(p2);
+		System.out.println(p1);
+		System.out.println(p2);
+		System.out.println(d);
+	}
+}
+
+Q 20.3
+public class Triangle{
+	private Point p1;
+	private Point p2;
+	private Point p3;
+
+	public Triangle(Point p1,Point p2,Point p3){
+		this.p1 = p1;
+		this.p2 = p2;
+		this.p3 = p3;
+	}
+
+	public Triangle(){
+		this(new Point(),new Point(),new Point());
+	}
+
+	public String toString(){
+		return "{(" + p1.getPosx() + "," + p1.getPosy() + ") ; (" + p2.getPosx() + "," + p2.getPosy() + ") ; (" + p3.getPosx() + "," + p3.getPosy() + ")}";
+	}
+
+	public double getPerimetre(){
+		return p1.distance(p2) + p2.distance(p3) + p1.distance(p3);
+	}
+}
+
+Q 20.4
+	Point p3 = new Point();
+	Triangle t1 = new Triangle(p1,p2,p3);
+	System.out.println(t1);
+	System.out.println("La perimetre de cet triangle est: " + t1.getPerimetre());
+
+Q 20.5
+Il faut ajouter un constructer de copie dans la classe Point,parce que il y a deux objets Triangle mais un seul objet Point:
+public Point(Point acopier){
+	this(acopier.posx,acopier.posy);
+}
+
+Et apres,on ajoute un constructeur de copie dans la classe Triangle,qui appel un constructeur de copie de la class Point: 
+public Triangle(Triangle acopier){
+	this(new Point(acopier.p1),new Point(acopier.p2),new Point(acopier.p3));
+}
+
+Et dans la main,on ajoute les commandes suivant:
+	Triangle t2 = new Triangle(t1);
+	p1.deplaceToi(2023,2023);
+	System.out.println(t1);
+	System.out.println(t2);
+Donc en ce cas la, le Point p1 de t1 il a ete change (2023,2023), mais le Point p1 de copie dans t2,il rest le meme
+
+Q 20.7
+Pour tester l’égalité structurelle entre deux triangles,il besion de la methode equals() dans la class Triangle:
+public boolean equals(Triangle t) {
+    	return this.p1.equals(t.p1) && this.p2.equals(t.p2) && this.p3.equals(t.p3);
+}
+
+Et on le test dans le main:
+	Triangle t2 = new Triangle(t1);
+	Triangle t3 = t1;
+	System.out.println("t1 et t2 sont-ils structurellement égaux ? " + t1.equals(t2));
+	System.out.println("t1 et t3 sont-ils structurellement égaux ? " + t1.equals(t3));
+avec t1== t2  false
+et t1 == t3 true
+Parce que  les triangles t1 et t2 ne sont pas structurellement égaux selon votre implémentation actuelle. Cela signifie que les références t1 et t2 pointent vers des objets différents en mémoire.
+
+Exercice 21
+Q 21.1
+La variable d'instance conjoint pour  initialiser est "null"
+
+public class Personne{
+	private String nom;
+	private Personne conjoint;
+
+	public Personne(String nom){
+		this.nom = nom;
+		this.conjoint = null;
+	}
+
+	public Personne(){
+		this.nom = "Pers" + Math.random()*('Z'-'A') + 'A';
+		this.conjoint = null;
+	}
+
+	public String toString() {
+        if (conjoint == null) {
+            return nom + ", célibataire";
+        }
+        return nom + ", marié(e)";
+    }
+}
+
+Q 21.2
+public void epouser(Personne p) {
+    	if (this.conjoint != null || p.conjoint != null || this.nom.equals(p.nom) || p == null) {
+        		System.out.println("Le mariage de " + this.nom + ", marié(e) avec " + p.nom + ", célibataire est impossible.");
+    	} else {
+       		this.conjoint = p;
+        		p.conjoint = this;
+        		System.out.println(this.nom + ", célibataire se marie avec " + p.nom + ", célibataire.");
+    	}
+}
+
+Q 21.3
+public void divorcer(){
+    	if(this.conjoint == null){
+        		System.out.println("Ce divorce est impossible, " + this.nom + " n'est pas marié(e).");
+    	} else {
+        		Personne ancienConjoint = this.conjoint;
+        		this.conjoint = null;
+        		ancienConjoint.conjoint = null;
+        		System.out.println(this.nom + " , marié(e) divorce de " + ancienConjoint.nom + ", marié(e)");
+    	}	
+}
+
+Q 21.4
+public static void main(String[] args) {
+        Personne p1 = new Personne("PersA");
+        Personne p2 = new Personne("PersB");
+        Personne p3 = new Personne();
+
+        // Marier p1 avec p2
+        p1.epouser(p2);
+
+        // Marier p1 avec p3 (impossible)
+        p1.epouser(p3);
+
+        // Marier p3 avec p1 (impossible)
+        p3.epouser(p1);
+
+        // Marier p3 avec lui-même (impossible)
+        p3.epouser(p3);
+
+        // Divorcer p1
+        p1.divorcer();
+
+        // Divorcer p3 (impossible, p3 est célibataire)
+        p3.divorcer();
+
+        // Afficher l'état des personnes après chaque opération
+        System.out.println("État après chaque opération :");
+        System.out.println(p1);
+        System.out.println(p2);
+        System.out.println(p3);
+}
+
+Et on l'execute dans le terminale et on a bien:
+PersA, célibataire se marie avec PersB, célibataire.                                                                                                                                      
+Le mariage de PersA, marié(e) avec PersR, célibataire est impossible.                                                                                                                       
+Le mariage de PersR, marié(e) avec PersA, célibataire est impossible.                                                                                                                       
+Le mariage de PersR, marié(e) avec PersR, célibataire est impossible.                                                                                                                        
+PersA , marié(e) divorce de PersB, marié(e)                                                                                                                                                  
+Ce divorce est impossible, PersR n'est pas marié(e).                                                                                                                   
+État après chaque opération :                                                                                                                                                               
+PersA, célibataire                                                              
+PersB, célibataire                                                                                                    
+PersR, célibataire      

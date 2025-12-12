@@ -1,0 +1,30 @@
+TP_10
+Numero_Etudiant : 21202829
+
+Exercice 1
+Question 1
+Avec la commande : sudo cp iss_synchro /usr/local/bin
+On peut utiliser l'execuable de iss_synchro n'importe ou
+
+Question 2
+Apres execute la commande suivante : ./ecriture.sh a b c ,dans le repertoire courant, il cree trois fichie qui s'appelle a b et c, dedans il y a une ligne avec premier : <pid> , et apres on la lancera encore une fois, alors dans les trois fichiers, il y a ajoutra la dexuieme ligne avec suivant : <nouveau_pid>
+
+Question 3
+Parce que deux commandes : ./ecriture.sh f1 f2 f3 & ./ecriture.sh f1 f2 f3 ,elles sont executes prallélisme p et donc il a certain temps peut avoir le cas de ecrase la ligne : premier <pid> parmi ces trois fichiers : f1 f2 et f3
+
+Question 4
+#! /bin/bash
+# ecriture.sh
+if [ $# -lt 1 ] ; then
+  echo Il faut au moins un parametre
+  exit 1
+fi
+for elem in "$@" ; do
+  iss_synchro lock verrou
+  if [ ! -e "$elem" ] ; then
+    echo premier $$ > "$elem"
+  else
+    echo suivant $$ >> "$elem"
+  fi
+  iss_synchro unlock verrou
+done

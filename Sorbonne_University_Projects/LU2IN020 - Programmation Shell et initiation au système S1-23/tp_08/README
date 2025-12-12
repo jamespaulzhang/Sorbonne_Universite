@@ -1,0 +1,398 @@
+TP_08
+Numero_etudiant:21202829
+
+Exercice 1
+Quetion 1
+pour savoir le PID de processus courant,on utilise la commande: echo $$
+et donc on trouve que son PID c'est 3771
+Et ensuite on lance la commande: sleep 30 &
+et donc il s'affiche
+[1] 3974
+Il nous informe que le processus qui sont cree pour dormir a le PID 3974
+et mtn on lance avec la commande ps o pid,ppid,state --pid $!
+d'abord il va afficher :   
+PID    PPID S
+3974    3771 S
+et on attendre apres 30 sec et lancer la commande encore une fois
+donc il s'affiche :    
+PID    PPID S
+[1]+  Finished  sleep 30
+
+Question 2
+#!/bin/bash
+
+sleep 30 &
+
+PID=$!
+
+echo "Initialisation l'info de ce processus"
+ps o pid,ppid,state --pid $PID
+
+wait
+
+echo "L'information de ce processus apres adoption"
+ps o pid,ppid,state --pid $PID
+
+On le donne la permission de lancement grace a la commande: chmod +x monscript.sh
+et on lance:./monscript.sh 
+Initialisation l'info de ce processus
+    PID    PPID S
+   6064    6063 S
+L'information de ce processus apres adoption
+    PID    PPID S
+
+Question 3
+#!/bin/bash
+
+if [ "$#" -ne 1 ];then
+    echo "Usage: $0 <PID>"
+    exit 1;
+fi
+
+for ((i = 0; i < 60; i++));do
+    ps -o pid,ppid,state --pid $1
+    sleep 1
+done
+
+Et on lacne la commande ./myZombie 
+il s'affiche : Je suis 6921 et mon fils 6922 va devenir un zombie
+et on lance le script dans autre terminale avec : ./processusMonitor.sh 6922
+et il s'affiche:
+./processMonitor.sh 6922
+    PID    PPID S
+   6922    6921 S
+    PID    PPID S
+   6922    6921 S
+    PID    PPID S
+   6922    6921 S
+    PID    PPID S
+   6922    6921 S
+    PID    PPID S
+   6922    6921 S
+    PID    PPID S
+   6922    6921 S
+    PID    PPID S
+   6922    6921 S
+    PID    PPID S
+   6922    6921 S
+    PID    PPID S
+   6922    6921 S
+    PID    PPID S
+   6922    6921 S
+    PID    PPID S
+   6922    6921 S
+    PID    PPID S
+   6922    6921 S
+    PID    PPID S
+   6922    6921 S
+    PID    PPID S
+   6922    6921 S
+    PID    PPID S
+   6922    6921 S
+    PID    PPID S
+   6922    6921 Z
+    PID    PPID S
+   6922    6921 Z
+    PID    PPID S
+   6922    6921 Z
+    PID    PPID S
+   6922    6921 Z
+    PID    PPID S
+   6922    6921 Z
+    PID    PPID S
+   6922    6921 Z
+    PID    PPID S
+   6922    6921 Z
+    PID    PPID S
+   6922    6921 Z
+    PID    PPID S
+   6922    6921 Z
+    PID    PPID S
+   6922    6921 Z
+    PID    PPID S
+   6922    6921 Z
+    PID    PPID S
+   6922    6921 Z
+    PID    PPID S
+   6922    6921 Z
+    PID    PPID S
+   6922    6921 Z
+    PID    PPID S
+   6922    6921 Z
+    PID    PPID S
+   6922    6921 Z
+    PID    PPID S
+   6922    6921 Z
+    PID    PPID S
+   6922    6921 Z
+    PID    PPID S
+   6922    6921 Z
+    PID    PPID S
+   6922    6921 Z
+    PID    PPID S
+   6922    6921 Z
+    PID    PPID S
+   6922    6921 Z
+    PID    PPID S
+   6922    6921 Z
+    PID    PPID S
+   6922    6921 Z
+    PID    PPID S
+   6922    6921 Z
+    PID    PPID S
+   6922    6921 Z
+    PID    PPID S
+   6922    6921 Z
+    PID    PPID S
+   6922    6921 Z
+    PID    PPID S
+   6922    6921 Z
+    PID    PPID S
+    PID    PPID S
+    PID    PPID S
+    PID    PPID S
+    PID    PPID S
+    PID    PPID S
+    PID    PPID S
+    PID    PPID S
+    PID    PPID S
+    PID    PPID S
+    PID    PPID S
+    PID    PPID S
+    PID    PPID S
+    PID    PPID S
+    PID    PPID S
+    PID    PPID S
+
+Question 4
+#!/bin/bash
+
+if [ "$#" -ne 1 ];then
+    echo "Usage: $0 <PID>"
+    exit 1;
+fi
+
+while ps -p $1 &> /dev/null;do
+    sleep 1
+done
+
+echo "Le processus est devenu zombie !!!"
+
+------------------------------------
+./processMonitor.sh 7193
+Le processus est devenu zombie!
+
+Exercice 2
+Quesiton 1
+Bien telecharge dans le repertoire ~/Desktop/ISS/tp_07/exo_2/dico
+
+Question 2
+#!/bin/bash
+for letter in {A..Z}; do
+    touch "/home/laviestbelle/Desktop/ISS/tp_07/Exo_2/dico/$letter.txt"
+done
+
+process_letter(){
+    letter=$1
+    grep -E "^$letter" dico.txt > "/home/laviestbelle/Desktop/ISS/tp_07/Exo_2/dico/$letter.txt"
+}
+
+for letter in {A..Z}; do
+    process_letter "$letter" &
+done
+
+wait
+
+Exercice 3
+Question 1
+#!/bin/bash
+
+# Vérifier si le nombre d'arguments est correct
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 <fichier>"
+    exit 1
+fi
+
+# Récupérer le nom du fichier en tant que premier argument
+fichier=$1
+
+# Vérifier si le fichier existe
+if [ ! -e "$fichier" ]; then
+    echo "Erreur : Le fichier $fichier n'existe pas."
+    exit 1
+fi
+
+# Vérifier si le fichier est lisible
+if [ ! -r "$fichier" ]; then
+    echo "Erreur : Impossible de lire le fichier $fichier."
+    exit 1
+fi
+
+# Trouver le mot le plus long
+mot_long=$(awk '{ print length, $0 }' "$fichier" | sort -nr | head -n 1 | cut -d" " -f2-)
+
+# Créer un nouveau fichier avec le mot le plus long
+nouveau_fichier="${fichier}.tmp"
+echo "$mot_long" > "$nouveau_fichier"
+
+# Afficher un message de succès
+echo "Le mot le plus long dans $fichier est '$mot_long' et a été écrit dans $nouveau_fichier."
+
+Question 2
+#!/bin/bash
+
+# Vérifier si le nombre d'arguments est correct
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 <répertoire>"
+    exit 1
+fi
+
+# Récupérer le nom du répertoire en tant que premier argument
+repertoire=$1
+
+# Vérifier si le répertoire existe
+if [ ! -d "$repertoire" ]; then
+    echo "Erreur : Le répertoire $repertoire n'existe pas."
+    exit 1
+fi
+
+# Vérifier si le répertoire est lisible
+if [ ! -r "$repertoire" ]; then
+    echo "Erreur : Impossible de lire le répertoire $repertoire."
+    exit 1
+fi
+
+# Utiliser find pour obtenir la liste des fichiers dans le répertoire
+fichiers=$(find "$repertoire" -type f)
+
+# Utiliser une boucle for pour exécuter le script longest.sh en arrière-plan sur tous les fichiers
+for fichier in $fichiers; do
+    ./longest.sh "$fichier" &
+done
+
+# Attendre que toutes les tâches en arrière-plan se terminent
+wait
+
+echo "Toutes les recherches parallèles sont terminées."
+
+Et apres on l'execute:
+./paraLongest.sh ~/Desktop/ISS/tp_08/Exo_3
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/A.txt.tmp est 'AUTODETERMINERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/A.txt.tmp.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/Y.txt est 'YELLOWKNIFIENNES' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/Y.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/paraLongest.sh est '# Utiliser une boucle for pour exécuter le script longest.sh en arrière-plan sur tous les fichiers' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/paraLongest.sh.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/U.txt est 'UNIVERSALISERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/U.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/J.txt est 'JURISPRUDENTIELLES' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/J.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/W.txt est 'WURTEMBERGEOISES' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/W.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/L.txt est 'LARYNGECTOMISERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/L.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/K.txt est 'KREMLINOLOGIQUES' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/K.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/X.txt est 'XYLOGRAPHIQUES' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/X.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/longest.sh est 'echo "Le mot le plus long dans $fichier est '$mot_long' et a été écrit dans $nouveau_fichier."' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/longest.sh.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/G.txt est 'GRAMMATICALISERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/G.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/N.txt est 'NEUROCHIRURGIENNES' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/N.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/T.txt est 'TUBERCULINISERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/T.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/H.txt est 'HYPERTROPHIERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/H.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/O.txt est 'OCCIDENTALISERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/O.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/V.txt est 'VULNERABILISERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/V.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/I.txt est 'INTELLECTUALISERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/I.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/Q.txt est 'QUINTESSENCIERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/Q.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/Z.txt est 'ZOOTECHNICIENNES' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/Z.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/M.txt est 'MELODRAMATISERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/M.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/A.txt est 'AUTODETERMINERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/A.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/P.txt est 'PRESIDENTIALISERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/P.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/F.txt est 'FRANSQUILLONNERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/F.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/S.txt est 'SYNCRISTALLISERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/S.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/B.txt est 'BUREAUCRATISERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/B.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/E.txt est 'ENTREDETRUISISSIONS' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/E.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/D.txt est 'DESEMBOURGEOISERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/D.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/R.txt est 'REINDUSTRIALISERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/R.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/C.txt est 'CINEMATOGRAPHIERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_3/C.txt.tmp.
+Toutes les recherches parallèles sont terminées.
+
+Question 3
+time ./longest.sh dico.txt
+Le mot le plus long dans dico.txt est 'REINDUSTRIALISERAIENT' et a été écrit dans dico.txt.tmp.
+
+real	0m0,538s
+user	0m0,535s
+sys	0m0,016s
+
+time ./paraLongest.sh ~/Desktop/ISS/tp_08/Exo_2/dico
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/Y.txt est 'YELLOWKNIFIENNES' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/Y.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/J.txt est 'JURISPRUDENTIELLES' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/J.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/Q.txt est 'QUINTESSENCIERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/Q.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/Z.txt est 'ZOOTECHNICIENNES' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/Z.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/W.txt est 'WURTEMBERGEOISES' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/W.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/X.txt est 'XYLOGRAPHIQUES' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/X.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/K.txt est 'KREMLINOLOGIQUES' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/K.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/U.txt est 'UNIVERSALISERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/U.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/H.txt est 'HYPERTROPHIERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/H.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/V.txt est 'VULNERABILISERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/V.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/L.txt est 'LARYNGECTOMISERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/L.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/N.txt est 'NEUROCHIRURGIENNES' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/N.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/F.txt est 'FRANSQUILLONNERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/F.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/G.txt est 'GRAMMATICALISERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/G.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/O.txt est 'OCCIDENTALISERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/O.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/T.txt est 'TUBERCULINISERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/T.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/I.txt est 'INTELLECTUALISERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/I.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/M.txt est 'MELODRAMATISERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/M.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/S.txt est 'SYNCRISTALLISERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/S.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/B.txt est 'BUREAUCRATISERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/B.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/A.txt est 'AUTODETERMINERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/A.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/P.txt est 'PRESIDENTIALISERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/P.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/C.txt est 'CINEMATOGRAPHIERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/C.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/E.txt est 'ENTREDETRUISISSIONS' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/E.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/R.txt est 'REINDUSTRIALISERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/R.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/D.txt est 'DESEMBOURGEOISERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/D.txt.tmp.
+Le mot le plus long dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/dico.txt est 'REINDUSTRIALISERAIENT' et a été écrit dans /home/laviestbelle/Desktop/ISS/tp_08/Exo_2/dico/dico.txt.tmp.
+Toutes les recherches parallèles sont terminées.
+
+real	0m0,679s
+user	0m1,776s
+sys	0m0,132s
+
+Question 4:
+Pour le script longest.sh:
+Lorsque vous comparez la somme des temps `user` et `sys` avec le temps `real`, il est important de comprendre que le temps `real` inclut non seulement le temps effectivement utilisé par le processeur pour exécuter le code de votre programme (`user`), mais aussi le temps passé à attendre des ressources externes, telles que des opérations d'entrée/sortie (I/O) ou d'autres formes d'attente.
+
+En théorie, dans un scénario idéal, la somme de `user` et `sys` devrait être proche du temps `real`, mais elle peut différer en raison de plusieurs facteurs, notamment :
+
+1. **Opérations d'Entrée/Sortie (I/O) :** Si votre programme effectue des opérations d'entrée/sortie, comme la lecture ou l'écriture de fichiers, le temps réel inclura le temps d'attente pendant ces opérations, ce qui peut ne pas être compté dans `user` ou `sys`.
+
+2. **Attente du Processeur :** Si votre programme doit attendre que le processeur soit disponible, cela sera inclus dans le temps réel mais pas nécessairement dans `user` ou `sys`.
+
+3. **Multitâche et Concurrence :** Si d'autres processus s'exécutent simultanément sur le système, le temps réel peut être influencé par la manière dont le système d'exploitation planifie l'exécution des différents processus.
+
+4. **Overhead du Système :** Il peut y avoir des coûts supplémentaires, tels que des appels système ou des frais généraux du système d'exploitation, qui peuvent contribuer au temps réel.
+
+En conclusion, la somme de `user` et `sys` peut différer du temps `real` en raison de ces facteurs externes. Si votre programme effectue des opérations d'entrée/sortie ou doit attendre des ressources externes, il est probable que le temps `real` sera plus grand que la somme de `user` et `sys`.
+
+pour le script paraLongest.sh:
+La sortie que vous avez fournie montre les temps de réalisation (`real`), d'utilisation du processeur en mode utilisateur (`user`), et d'utilisation du processeur en mode système (`sys`) pour une commande spécifique. En l'occurrence, le temps `real` est de 0m0,679s, le temps `user` est de 0m1,776s, et le temps `sys` est de 0m0,132s.
+
+Il est intéressant de noter que le temps `user` est supérieur au temps `real`, ce qui peut sembler contre-intuitif à première vue. Cela peut être dû à des processus parallèles ou à des opérations d'entrée/sortie.
+
+Voici quelques explications possibles :
+
+1. **Processus Parallèles :** Si d'autres processus s'exécutent simultanément sur le système, le temps `user` de votre commande peut être cumulé avec le temps d'exécution d'autres processus, donnant une valeur supérieure au temps `real`.
+
+2. **Opérations d'Entrée/Sortie (I/O) :** Si votre commande effectue des opérations d'entrée/sortie, comme la lecture ou l'écriture de fichiers, le temps `real` peut être inférieur au temps `user` si la commande doit attendre des opérations d'I/O.
+
+3. **Overhead du Système :** Des opérations système supplémentaires ou des frais généraux du système d'exploitation peuvent également contribuer à cette différence.
+
+Question 5:
+Le taux de parallélisme peut être mesuré en comparant le temps d'exécution d'une tâche en parallèle avec le temps d'exécution de la même tâche de manière séquentielle. Le taux de parallélisme est généralement défini comme le rapport entre le temps d'exécution séquentielle et le temps d'exécution parallèle.
+
+La formule du taux de parallélisme (Speedup) est la suivante :
+
+Speedup = Temps d'exécution séquentielle / Temps d'exécution parallèle
+
+Un taux de parallélisme idéal serait égal au nombre de processeurs disponibles, car cela signifierait que la tâche peut être effectuée en parallèle sur tous les processeurs sans aucun surcoût. Cependant, dans la réalité, il est rare d'atteindre un taux de parallélisme parfait en raison de divers facteurs, tels que les coûts d'initialisation, la dépendance entre les tâches, etc.
+
+Pour mesurer le taux de parallélisme dans le contexte de vos scripts `longest.sh` et `paraLongest.sh`, vous pouvez effectuer les étapes suivantes :
+
+1. Exécuter le script `longest.sh` sur un fichier spécifique et mesurer le temps d'exécution séquentielle.
+2. Exécuter le script `paraLongest.sh` sur le même fichier (ou ensemble de fichiers) et mesurer le temps d'exécution parallèle.
+
+Ensuite, utilisez ces mesures pour calculer le taux de parallélisme à l'aide de la formule ci-dessus.
+
+Que le résultat soit satisfaisant ou non dépend de vos attentes et des caractéristiques spécifiques de votre système et de votre tâche. Si le taux de parallélisme est proche du nombre de processeurs disponibles et que le temps d'exécution est significativement réduit par rapport à l'exécution séquentielle, cela indiquerait un bon niveau de parallélisme. Cependant, si le taux de parallélisme est faible, cela pourrait indiquer des inefficacités dans la parallélisation ou des coûts d'initialisation élevés.

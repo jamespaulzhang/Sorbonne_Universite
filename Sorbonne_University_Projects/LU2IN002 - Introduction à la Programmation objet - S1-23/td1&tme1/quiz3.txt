@@ -1,0 +1,34 @@
+En Java, lorsqu'on effectue des opérations impliquant des types différents, Java va effectuer des conversions implicites pour tenter d'harmoniser les types. Voyons les expressions une par une :
+
+a) 1 + "1"
+Dans cette expression, le 1 est un entier, et "1" est une chaîne de caractères. Lorsqu'une opération est effectuée entre un entier et une chaîne, Java convertira automatiquement l'entier en une chaîne de caractères et concaténera les deux chaînes. Donc, le résultat sera une chaîne de caractères : "11".
+
+b) 1 + '1'
+Ici, le 1 est un entier et '1' est un caractère. Les caractères en Java sont essentiellement représentés par leurs codes ASCII, et le code ASCII du caractère '1' est 49. Ainsi, Java effectuera une addition entre l'entier 1 et l'entier 49, ce qui donnera 50.
+
+c) '1' + "1"
+Dans cette expression, '1' est un caractère et "1" est une chaîne de caractères. L'addition d'un caractère avec une chaîne impliquera que le caractère sera converti en sa représentation ASCII, et ensuite les deux chaînes seront concaténées. Le code ASCII du caractère '1' est 49, donc le résultat sera la chaîne "491".
+
+En résumé :
+a) Résultat : "11" (chaîne de caractères)
+b) Résultat : 50 (entier)
+c) Résultat : "491" (chaîne de caractères)
+
+a) 1 + '1' + "1"
+
+'1' est un caractère avec un code ASCII de 49.
+L'addition de 1 + '1' donne 50 (en raison de l'addition des valeurs numériques).
+Enfin, la concaténation de "50" et "1" donne "501".
+Donc, le résultat de l'expression a) est "501".
+
+b) "1" + '1' + 1
+
+"1" est une chaîne de caractères.
+'1' est un caractère avec un code ASCII de 49.
+La concaténation de "1" et '1' donne "11".
+Ensuite, la concaténation de "11" et 1 (converti en chaîne de caractères) donne "111".
+Donc, le résultat de l'expression b) est "111".
+
+En résumé :
+a) Résultat : "501"
+b) Résultat : "111"

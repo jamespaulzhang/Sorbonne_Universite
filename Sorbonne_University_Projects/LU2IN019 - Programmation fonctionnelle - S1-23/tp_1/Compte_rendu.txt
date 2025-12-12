@@ -1,0 +1,59 @@
+Exercice 1.2
+Q2 : Quel est le type de la fonction less_divider ?
+int->int->int
+
+Exercice 1.3 (Portée statique, portée dynamique).
+1. Introduire une définition pour que l’environnement courant contienne la liaison (y, 6). On appelle E1 cet environnement.
+
+En OCaml, cela pourrait ressembler à ceci :
+let y = 6 in
+  (* Code supplémentaire ici *)
+
+En Python, vous pouvez simplement faire :
+y = 6
+# Code supplémentaire ici
+
+2. Dans l’environnement E1, définir une fonction de signature foo (x : int) : int qui calcule x + y. Soit E0 1 l’environnement obtenu après cette définition.
+
+En OCaml :
+let y = 6 in
+let foo (x : int) : int = x + y in
+  (* Code supplémentaire ici *)
+
+En Python, vous pouvez définir la fonction foo comme suit :
+y = 6
+def foo(x):
+    return x + y
+# Code supplémentaire ici
+
+3. Que vaut (foo 4) dans l’environnement E0 1 ?
+
+Dans les deux langages, (foo 4) devrait retourner 10.
+
+4. Dans l’environnement E0 1, introduire une (re)définition pour que l’environnement courant contienne désormais la liaison (y, 18). On appelle E2 cet environnement.
+
+En OCaml :
+let y = 18 in
+  (* Code supplémentaire ici *)
+
+En Python :
+y = 18
+# Code supplémentaire ici
+
+5. Que vaut (foo 4) dans l’environnement E2 ?
+
+Dans les deux langages, (foo 4) devrait maintenant retourner 22.
+
+6. (Portée statique) Dans quel environnement le corps d’une fonction OCaml est-il évalué lors de l’application de cette fonction à un argument ?
+
+En OCaml, le corps d'une fonction est évalué dans l'environnement où la fonction est définie, ce qui correspond à la portée statique.
+
+7. Soit le fichier test.py contenant le code Python ci-dessous...
+
+Cela semble être une question de sortie attendue. En exécutant le code Python donné, vous devriez obtenir les sorties suivantes :
+10
+22
+
+8. (Portée dynamique) Dans quel environnement le corps d’une fonction Python est-il évalué lors de l’application de cette fonction à un argument ?
+
+En Python, le corps d'une fonction est évalué dans l'environnement où la fonction est appelée, ce qui correspond à la portée dynamique. Cela signifie que Python recherche d'abord les variables dans l'environnement d'appel, puis dans les environnements externes si nécessaire.

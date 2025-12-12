@@ -1,0 +1,418 @@
+Exercice 41
+Q 41.1
++-----------------+
+|    Instrument   |
++-----------------+
+| - poids : int   |
+| - prix : int    |
++-----------------+
+| + Instrument(int poids, int prix) |
+| + toString() : String |
+| + jouer() : void |
++-----------------+
+         ^
+         |
+         |
++-----------------+
+|      Piano      |
++-----------------+
+| - nombreTouches : int |
++-----------------+
+| + Piano(int poids, int prix, int nombreTouches) |
+| + toString() : String |
++-----------------+
+         ^
+         |
+         |
++-----------------+
+|     Guitare     |
++-----------------+
+| - type : String |
++-----------------+
+| + Guitare(int poids, int prix, String type) |
+| + toString() : String |
++-----------------+
+         ^
+         |
+         |
++-----------------+
+|    Orchestre    |
++-----------------+
+| - instruments : Instrument[] |
+| - nbInstruments : int |
+| - max : int |
++-----------------+
+| + Orchestre(int max) |
+| + ajouterInstrument(Instrument x) : void |
+| + jouer() : void |
++-----------------+
+
+
+Q 41.2
+public class Instrument{
+	private int poids;
+	private int prix;
+
+	public Instrument(int poids,int prix){
+		this.poids = poids;
+		this.prix = prix;
+	}
+
+	public String toString(){
+		return "poids : " + poids + " kg, prix : " + prix + " euros";
+	}
+
+	public void jouer(){
+		System.out.println("L'instrument joue");
+	}
+}
+
+Q 41.3
+public class Piano extends Instrument{
+	private int nb_touches;
+
+	public Piano(int poids,int prix,int nb_touches){
+		super(poids,prix);
+		this.nb_touches = nb_touches;
+	}
+
+	public String toString(){
+		return "Piano " + nb_touches + " touches " + super.toString();
+	}
+
+	public void jouer(){
+		System.out.println("Piano : 'La Piano " + nb_touches + " touches joue'");
+	}
+}
+
+public class Guitare extends Instrument{
+	private String type;
+
+	public Guitare(int poids,int prix,String type){
+		super(poids,prix);
+		this.type = type;
+	}
+
+	public String toString(){
+		return "Guitare " + type + " " + super.toString();
+	}
+
+	public void jouer(){
+		System.out.println("Guitare : 'La guitare " + type + " joue'");
+	}
+}
+
+public class TestOrchestre{
+	public static void main(String[] args){
+		Piano p1 = new Piano(300,700,88);
+		Guitare g1 = new Guitare(5,200,"classique");
+
+		System.out.println(p1);
+		System.out.println(g1);
+
+		//p1.jouer();
+		//g1.jouer();
+
+		Orchestre o1 = new Orchestre(10);
+		o1.ajouterInstrument(p1);
+		o1.ajouterInstrument(g1);
+		o1.jouer();
+	}
+}
+
+Q 41.4
+public class Orchestre {
+	private Instrument[] tab;
+	private static int num = 0;
+	private int max;
+
+	public Orchestre(int max) {
+		tab = new Instrument[max];
+		this.max = max;
+	}
+
+	public void ajouterInstrument(Instrument x) {
+		if(num < tab.length) {
+			tab[num++] = x;
+		} else {
+			System.out.println("C'est déjà plein. Impossible d'ajouter l'instrument");
+		}
+	}
+
+	public void jouer() {
+		for(int i = 0; i < num; i++) {
+			tab[i].jouer();
+		}
+	}
+}
+
+Q 41.5
+a) Il y a pas une methode jouer() dans la classe Instrument,donc il peut pas compiler
+
+b) "L'instrument joue" il s'affiche pas car dans la classe Orchestre ,le methode jouer() dedans il rappler que le structure du methode jouer() dans la classe Instrument,pas le contenu dedans. Enfaite,c'est toujours le methode dans la classe Piano ou dans la classe Guitare,il va afficher les informations. Pour le resourdre,y a une classe qui s'appelle abstracte
+
+Q 41.6
+Si l'on souhaite ajouter un nouvel instrument (par exemple, une trompette ou une batterie), il faudrait modifier les classes Instrument pour créer une nouvelle sous-classe correspondant à ce nouvel instrument (par exemple, Trompette ou Batterie). Il ne serait pas nécessaire de modifier les classes Piano, Guitare ou Orchestre, car celles-ci utilisent l'héritage pour gérer différents types d'instruments de manière générique.
+
+Exercice 42
+Q 42.1
++-------------------------------------+
+|               Vehicule              |
++-------------------------------------+
+| - id : int                          |
+| - marque : String                   |
+| - distanceParcourue : double        |
++-------------------------------------+
+| + Vehicule(id : int, marque : String)|
+| + getId() : int                     |
+| + getMarque() : String              |
+| + getDistanceParcourue() : double   |
+| + setDistanceParcourue(dist : double)|
+| + toString() : String               |
++-------------------------------------+
+                 /\
+                 |
+          +------------------+
+          |                  |
+          |                  |
+          |                  |
+ +----------------+  +----------------+
+ |     AMoteur    |  |   SansMoteur  |
+ +----------------+  +----------------+
+ | - capaciteReservoir : double     |
+ | - niveauEssence : double         |
+ +----------------+  +----------------+
+ | + getCapaciteReservoir() : double |
+ | + setNiveauEssence(niveau : double)|
+ | + getNiveauEssence() : double    |
+ +----------------+  +----------------+
+                 /\
+                 |
+          +----------------+
+          |                |
+          |                |
+          |                |
+ +------------------+  +------------------+
+ |       Velo       |  |      Voiture    |
+ +------------------+  +------------------+
+ | - nbVitesses : int   | - nbPlaces : int |
+ +------------------+  +------------------+
+ | + getNbVitesses() : int | + getNbPlaces() : int |
+ +------------------+  +------------------+
+                 /\
+                 |
+          +----------------+
+          |                |
+          |                |
+          |                |
+ +------------------+  +------------------+
+ |     Camion       |  |    Moto        |
+ +------------------+  +------------------+
+ | - volumeTransporte : double |            |
+ +------------------+  +------------------+
+ | + getVolumeTransporte() : double       |
+ +------------------+ 
+
+Q 42.2
+public class Vehicule{
+	private static int compteur = 0;
+	private int id;
+	private String marque;
+	private double distance;
+
+	public Vehicule(String marque){
+		compteur += 1;
+		id = compteur;
+		this.marque = marque;
+	}
+
+	public int getId(){
+		return id;
+	}
+
+	public double getDistance(){
+		return distance;
+	}
+
+	public String toString(){
+		return id + " de marque " + marque;
+	}
+}
+
+public class AMoteur extends Vehicule{
+	private double reservoir;
+	private double essence;
+	
+	public AMoteur(String marque,double reservoir){
+		super(marque);
+		this.reservoir = reservoir;
+	}
+
+	public String toString(){
+		return super.toString() + " avec moteur"; 
+	}
+
+   	public double getEssence(){
+    		return essence;
+    	}
+}
+
+public class SansMoteur extends Vehicule{
+	public SansMoteur(String marque){
+		super(marque);
+	}
+
+	public String toString(){
+		return super.toString() + " sans moteur";
+	}
+}
+
+Q 42.3
+public class Velo extends SansMoteur{
+	private int nb_vitesses;
+	public Velo(String marque,int nb_vitesses){
+		super(marque);
+		this.nb_vitesses = nb_vitesses;
+	}
+
+	public String toString(){
+		return "Vélo " + super.toString() + " " + nb_vitesses + " vitesses";
+	}
+
+	public void transporter(String depart,String arrivee){
+		System.out.println("Le velo " + super.getId() + " se déplace de " + depart + " à " + arrivee);
+	}
+}
+
+Q 42.4
+On doit ecrire le methode rouler(double distance) dans la classe Vehicule.
+	public String rouler(double dis_roule){
+		distance += dis_roule;
+		return toString() + " a roulé " + dis_roule + " km";
+	}
+
+Q 42.5
+public class TestVehicule {
+    public static void main(String[] args) {
+    	Velo velo = new Velo("MyVTT",17);
+	System.out.println(velo);
+	velo.transporter("Paris", "Lyon");
+    }
+}
+
+Il s'affiche : 
+Vélo 1 de marque MyVTT sans moteur 17 vitesses                                                                          
+Le velo 1 se déplace de Paris à Lyon
+
+Q 42.6
+On doit ecrire les méthodes void approvisionner(double nbLitres), et boolean enPanne() dans la classe AMoteur.
+	public void approvisionner(double nbLitres) {
+		if(reservoir >= (essence + nbLitres)) {
+			essence += nbLitres;
+		} else {
+			System.out.println("Vous avez approvisionner trop. Essayez une autre fois.");
+		}
+	}
+
+    	public boolean enPanne() {
+        		return essence <= 0;
+   	}
+
+Q 42.7
+public class Voiture extends AMoteur{
+	private int places;
+	public Voiture(String marque,double reservoir,int places) {
+        super(marque,reservoir);
+        this.places = places;
+    }
+
+	public String toString() {
+        return "Voiture " + super.toString() + " " + places + " places";
+    }
+
+	public void transporter(int nbPers,int km){
+		double ess = super.getEssence();
+		double dis = super.getDistance();
+		if (ess - km >= 0 && places - nbPers >= 0){
+			System.out.println("La voiture " + super.getId() + " transporte " + nbPers + " personne sur " + km + " km");
+			ess -= km;
+			dis += km;
+			places -= nbPers;
+		} else if(ess - km < 0 && places - nbPers >= 0) {
+        	dis += ess;
+        	ess = 0;
+			System.out.println("La voiture " + super.getId() + " n'a pas assez d'essence pour rouler " + km + " km." + " Il s'arrete à " + dis + " km");
+		} else if(super.enPanne()){
+			System.out.println("La voiture " + super.getId() + " n’a plus d’essence !");
+		} else if(places - nbPers < 0){
+			System.out.println("Il y a pas assez de places");
+		}
+	}
+}
+
+Dans la classe TestVehicule,on ajoute:
+		Voiture voiture = new Voiture ("MyCar",200,5);
+		System.out.println(voiture);
+		voiture.approvisionner(200);
+		voiture.transporter(5,200);
+Il s'affiche: 
+Voiture 2 de marque MyCar avec moteur 5 places
+La voiture 2 transporte 5 personne sur 200 km
+
+Q 42.8
+public class Camion extends AMoteur {
+    private double volumeTransporte;
+
+    public Camion(String marque,double reservoir,double volumeTransporte) {
+        super(marque,reservoir);
+        this.volumeTransporte = volumeTransporte;
+    }
+
+    public void transporter(String materiau, int km) {
+        double ess = super.getEssence();
+		double dis = super.getDistance();
+
+		if(super.enPanne()) {
+			System.out.println("Le camion " + super.getId() + " n’a plus plus d’essence!");
+		} else if(ess- km < 0) {
+			dis += ess;
+        	ess = 0;
+			System.out.println("Le camion " + super.getId() + " n'a pas assez d'essence pour rouler " + km + " km." + " Il s'arrete à " + dis + " km");
+		} else {
+			ess -= km;
+			dis += km;
+			System.out.println("Le camion " + super.getId() + " a transporté des " + materiau + " sur " + km + " km");
+		}
+    }
+
+    public String toString() {
+        return "Camion " + super.toString() + " " + volumeTransporte + " m^3 transportés";
+    }
+}
+
+Dans la classe TestVehicule,on ajoute:
+		Camion camion = new Camion("MyCamion",500,10);
+		System.out.println(camion);
+		camion.approvisionner(400);
+		camion.transporter("tuiles",500);
+Il s'affiche:
+Camion 3 de marque MyCamion avec moteur 10.0 m^3 transportés
+Le camion 3 n'a pas assez d'essence pour rouler 500 km. Il s'arrete à 400 km
+
+Q 42.9
+        Vehicule[] parc = new Vehicule[3];
+        parc[0] = velo;
+        parc[1] = voiture;
+        parc[2] = camion;
+
+        for (Vehicule vehicule : parc) {
+            System.out.println(vehicule.rouler(10));
+        }
+
+Il s'affiche :
+Vélo 1 de marque MyVTT sans moteur 17 vitesses a roulé 10.0 km                                                          
+Voiture 2 de marque MyCar avec moteur 0 places a roulé 10.0 km                                                          
+Camion 3 de marque MyCamion avec moteur 10.0 m^3 transportés a roulé 10.0 km 
+
+Q 42.10
+On peut pas car les methode transporter dans la classe Voiture et Camion ont pas les meme parametre,et ils sont differents 
