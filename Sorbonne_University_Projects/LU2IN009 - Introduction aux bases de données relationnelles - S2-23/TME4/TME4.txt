@@ -1,0 +1,37 @@
+//EX_2.1
+select * from athlete
+
+//EX_2.2
+select count(*) from athlete
+
+
+
+//EX_3.1
+select i.nom,i.prenom
+From athlete i
+Where i.pays = 'Inde'
+
+//EX_3.2
+Select a.prenom
+From Athlete a
+Where a.nom = 'GOLD'
+
+//EX_3.3
+Select a.pays 
+From athlete a
+where a.nom = 'AONO' and a.prenom = 'Ryo'
+
+//EX_3.4
+Select re.sport, re.epreuve
+From RANGEPREUVE re
+Where re.rang = 1
+
+//EX_3.6
+Select a.prenom, a.nom
+From Athlete a
+Where YEAR(a.datenaissance) >= 1990 and YEAR(a.datenaissance)<= 1995
+
+//EX_3.7
+Select re.nomath, re.prenomath
+From RangEpreuve re, Athlete a
+Where re.Rang is null and re.sport = 'Biathlon' and a.nom = re.nomath and a.prenom = re.prenomath and a.pays = 'Suisse' 

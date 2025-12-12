@@ -1,0 +1,23 @@
+
+/*Q1*/
+Select count(*)
+From Athlete;
+
+/*Q3*/
+Select round(avg(datediff(year, a.datenaissance, formatdatetime('06/02/2014', 'dd/mm/YYYY'))), 1)
+From Athlete a, Pays p
+Where a.codepays = p.codepays and p.nomp = 'FRA'
+
+/*Q4*/
+Select 'Durée moyenne = '|| round(avg(tab.duree), 2) ||' ; min = ' || min(tab.duree)   || ' ; max = ' || max(tab.duree)   
+From (Select datediff(day, datedebut, datefin)+1 as duree From Epreuve ) tab
+
+/*Q5*/
+Select avg(tab.nb)
+From Athlete, (Select count(*) as nb From Athlete Group by pays) tab
+
+/*Q6*/
+Select Pays, count(*)
+From Athlete
+Group by pays
+Order by count(*)

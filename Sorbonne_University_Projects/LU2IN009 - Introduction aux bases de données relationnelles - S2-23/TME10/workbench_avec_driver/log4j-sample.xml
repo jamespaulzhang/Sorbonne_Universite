@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Log4J 2.x sample configuration file for SQL Workbench/J -->
+<Configuration name="SQL Workbench/J logging">
+
+  <Appenders>
+    <!--
+      Enable this appender if you want to see log messages in the console window
+    -->
+    <!--
+    <Console name="console">
+      <PatternLayout pattern="%d{ISO8601} %-5p %m%n"/>
+    </Console>
+    -->
+
+    <!--
+        Define an appender that writes to a file.
+        workbench.config.dir will be set by SQL Workbench/J before the
+        Log4J system is initialized.
+
+        It also sets workbench.install.dir which points to the directory where
+        sqlworkbench.jar is located
+    -->
+    <RollingFile name="file"
+                 fileName="${sys:workbench.config.dir}/log4j.log"
+                 filePattern="${sys:workbench.config.dir}/log4j.%i.log.gz">
+      <PatternLayout pattern="%d{ISO8601} %-5p %c{2} %m%n"/>
+      <Policies>
+        <SizeBasedTriggeringPolicy size="10MB" />
+      </Policies>
+      <DefaultRolloverStrategy max="5" />
+    </RollingFile>
+
+  </Appenders>
+
+  <Loggers>
+    <!--
+       An example to turn on different logging levels for different packages.
+     -->
+    <!--<Logger name="workbench.db" level="debug" additivity="false"/>-->
+    <!--<Logger name="workbench.gui" level="error" additivity="false"/>-->
+
+    <Root level="info">
+      <AppenderRef ref="file"/>
+      <!-- enable this ref, if the Console appender is enabled -->
+      <!-- <AppenderRef ref="console"/> -->
+    </Root>
+  </Loggers>
+
+</Configuration>

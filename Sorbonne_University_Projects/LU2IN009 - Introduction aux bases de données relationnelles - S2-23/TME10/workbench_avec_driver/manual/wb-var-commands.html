@@ -1,0 +1,80 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>28.&nbsp;Manage variables with SQL Workbench/J</title><link href="html-publish.css" type="text/css" rel="stylesheet"><meta content="DocBook XSL Stylesheets V1.78.1" name="generator"><link rel="home" href="workbench-manual.html" title="SQL Workbench/J User's Manual"><link rel="up" href="workbench-manual.html" title="SQL Workbench/J User's Manual"><link rel="prev" href="wb-macro-commands.html" title="27.&nbsp;Manage macros with SQL Workbench/J command"><link rel="next" href="wb-commands.html" title="29.&nbsp;Other SQL Workbench/J specific commands"><link rel="article" href="workbench-manual.html" title="SQL Workbench/J User's Manual"><link rel="subsection" href="wb-var-commands.html#wb-define-var" title="28.1.&nbsp;Define a script variable - WbVarDef"><link rel="subsection" href="wb-var-commands.html#command-vardelete" title="28.2.&nbsp;Delete a script variable - WbVarDelete"><link rel="subsection" href="wb-var-commands.html#command-varlist" title="28.3.&nbsp;Show defined script variables - WbVarList"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">28.&nbsp;Manage variables with SQL Workbench/J</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="wb-macro-commands.html">Prev</a>&nbsp;</td><th align="center" width="60%">&nbsp;</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="wb-commands.html">Next</a></td></tr></table><hr></div><div class="section" id="wb-var-commands"><div class="titlepage"><div><div><h2 class="title" style="clear: both">28.&nbsp;Manage variables with SQL Workbench/J</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="wb-var-commands.html#wb-define-var">28.1. Define a script variable - WbVarDef</a></span></dt><dt><span class="section"><a href="wb-var-commands.html#command-vardelete">28.2. Delete a script variable - WbVarDelete</a></span></dt><dt><span class="section"><a href="wb-var-commands.html#command-varlist">28.3. Show defined script variables - WbVarList</a></span></dt></dl></div><div class="important" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Important"><tr><td valign="top" align="center" rowspan="2" width="25"><img alt="[Important]" src="./images/important.png"></td><th align="left"></th></tr><tr><td valign="top" align="left"><p>
+    All SQL Workbench/J specific command can <span class="bold"><strong>only</strong></span> be used from within SQL Workbench/J
+  </p></td></tr></table></div><p>
+      More details about using variables can be found in the chapter <a class="xref" href="using-variables.html" title="17.&nbsp;Variable substitution in SQL statements">Variable substitution</a>.
+    </p><div class="section" id="wb-define-var"><div class="titlepage"><div><div><h3 class="title">28.1.&nbsp;Define a script variable - WbVarDef</h3></div></div></div><p>
+      This defines an internal variable which is used for variable substitution during
+      SQL execution.
+    </p><p>
+      There are two possibilities to define a variable.
+    </p><p>
+       The short syntax is: <code class="literal">WbVarDef variable=value</code>
+    </p><p>
+      The long syntax allows to define variables in a different way:
+    </p><p>
+      <code class="literal">WbVarDef</code> supports <a class="link" href="wb-commands.html#conditional-exec" title="29.6.&nbsp;Conditional execution">conditional execution</a>
+    </p><div class="informaltable"><table style="border-collapse: collapse;border-top: 1px solid ; border-bottom: 1px solid ; border-left: 1px solid ; border-right: 1px solid ; "><colgroup><col width="4cm" align="left" class="c1"><col align="left" class="c2"></colgroup><thead><tr><th style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left">Parameter</th><th style="border-bottom: 1px solid ; " align="left">Description</th></tr></thead><tbody valign="top"><tr><td id="wbvardef-varname" style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top">-variable</td><td style="border-bottom: 1px solid ; " align="left" valign="top">The name of the variable to be defined.</td></tr><tr><td id="wbvardef-varvalue" style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top">-value</td><td style="border-bottom: 1px solid ; " align="left" valign="top">The value of the variable.</td></tr><tr><td id="wbvardef-file" style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top">-file</td><td style="border-bottom: 1px solid ; " align="left" valign="top">
+              Read the variable definitions from the specified file.
+            </td></tr><tr><td id="wbvardef-contentfile" style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top">-contentFile</td><td style="border-bottom: 1px solid ; " align="left" valign="top">
+              Read the contents of the variable from a the specified file.
+            </td></tr><tr><td id="wbvardef-content-encoding" style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top">-encoding</td><td style="border-bottom: 1px solid ; " align="left" valign="top">
+              The encoding of the file specified with <code class="literal">-contentFile</code>.
+            </td></tr><tr><td id="wbvardef-query" style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top">-query</td><td style="border-bottom: 1px solid ; " align="left" valign="top">
+              Define a SQL query to be used as the source for the variable(s).
+            </td></tr><tr><td id="wbvardef-content-replace" style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top">-replaceVars</td><td style="border-bottom: 1px solid ; " align="left" valign="top">
+              <p>Valid values are: <code class="literal">true</code>, <code class="literal">false</code></p>
+              <p>
+                If the variable content is defined through <code class="literal">-contentFile</code>, this parameter
+                controls if variable references in the the content should be replaced.
+              </p>
+              <p>
+                The default for this parameter is: <code class="literal">true</code>.
+              </p>
+            </td></tr><tr><td id="wbvardef-cleanup" style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top">-cleanupValue</td><td style="border-bottom: 1px solid ; " align="left" valign="top">
+              <p>Valid values are: <code class="literal">true</code>, <code class="literal">false</code></p>
+              <p>
+                If this is set to true, the value is "cleaned" up such that newlines (linefeeds)
+                and SQL style comments are removed.
+              </p>
+              <p>
+                The default for this parameter is: <code class="literal">false</code>.
+              </p>
+            </td></tr><tr><td id="wbvardef-remove" style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top">-removeUndefined</td><td style="border-bottom: 1px solid ; " align="left" valign="top">
+              <p>Valid values are: <code class="literal">true</code>, <code class="literal">false</code></p>
+              <p>
+                If this is set to true, any reference to non-existing variables inside the value to be defined
+                through <code class="literal">-value</code>, <code class="literal">-query</code> or <code class="literal">-contentFile</code>) is removed.
+              </p>
+              <p>
+                The default for this parameter is: <code class="literal">false</code>.
+              </p>
+            </td></tr><tr><td id="wbvardef-null" style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top">-nullHandling</td><td style="border-bottom: 1px solid ; " align="left" valign="top">
+              Define how NULL values returned from a SQL query should be handled.
+              <table border="0" summary="Simple list" class="simplelist"><tr><td><code class="literal">empty</code> - if the value from the query is NULL, the variable be set to an empty string.</td></tr><tr><td>
+                  <code class="literal">ignore</code> - the value is ignored. An existing variable will not be changed. If the variable
+                  does not exist, it will not be created.
+                </td></tr><tr><td><code class="literal">remove</code> - if the value from the query is NULL, the variable will be removed.</td></tr></table>
+            </td></tr><tr><td id="wbvardef-lookup-values" style="border-right: 1px solid ; border-bottom: 1px solid ; " align="left" valign="top">-values</td><td style="border-bottom: 1px solid ; " align="left" valign="top">
+              Define a comma separated list of values that are used in the dialog that is shown when
+              prompting for variable values.
+            </td></tr><tr><td id="wbvardef-silent" style="border-right: 1px solid ; " align="left" valign="top">-silent</td><td style="" align="left" valign="top">
+              If the option <code class="literal">-silent</code> is specified, no feedback about the variable definition
+              will be shown.
+            </td></tr></tbody></table></div><p>
+      More details and examples can be found in the chapter: <a class="xref" href="using-variables.html" title="17.&nbsp;Variable substitution in SQL statements">Variable substitution</a>
+    </p></div><div class="section" id="command-vardelete"><div class="titlepage"><div><div><h3 class="title">28.2.&nbsp;Delete a script variable - WbVarDelete</h3></div></div></div><p>
+      This removes a variable.
+    </p><p>
+      The syntax is <code class="literal">WbVarDelete variable</code>
+    </p><p>
+      <code class="literal">variable</code> is the name of the variable to be removed.
+      The name can contain wildcards. <code class="literal">WbVarDelete *</code> will remove all defined variables.
+      <code class="literal">WbVarDelete id*</code> will remove all variables starting with <code class="literal">id</code>.
+    </p></div><div class="section" id="command-varlist"><div class="titlepage"><div><div><h3 class="title">28.3.&nbsp;Show defined script variables - WbVarList</h3></div></div></div><p>
+      This shows all defined variables when invoked without parameters. There are two ways to filter the result:
+    </p><p>
+      Supplying a simple wildcard value, e.g. <code class="literal">WbVarList foo*</code> to display variables where the name starts with <code class="literal">foo</code>
+    </p><p>
+      Using the parameter <code class="literal">-match</code> to define a regular expression only show variables where the name matches the regular expression,
+      e.g. <code class="literal">WbVarList -match="^(foo|bar).*"</code> to list all variables where the name starts with <code class="literal">foo</code> or <code class="literal">bar</code>.
+    </p></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="wb-macro-commands.html">Prev</a>&nbsp;</td><td align="center" width="20%">&nbsp;</td><td align="right" width="40%">&nbsp;<a accesskey="n" href="wb-commands.html">Next</a></td></tr><tr><td valign="top" align="left" width="40%">27.&nbsp;Manage macros with SQL Workbench/J command&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="workbench-manual.html">Home</a></td><td valign="top" align="right" width="40%">&nbsp;29.&nbsp;Other SQL Workbench/J specific commands</td></tr></table></div></body></html>

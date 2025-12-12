@@ -1,0 +1,13 @@
+2023-01-01 10:31:04 - === Starting 64bit SQL Workbench/J launcher ===
+2023-01-01 10:31:04 - Base directory: C:\Users\Bernd\Downloads\Workbench-Build129
+2023-01-01 10:31:04 - Launcher config file: C:\Users\Bernd\Downloads\Workbench-Build129\SQLWorkbench.cfg
+2023-01-01 10:31:04 - ERROR: Java runtime specified through JAVA_HOME at "C:\Program Files\Java\jdk1.8.0_271" is not a Java 11 runtime
+2023-01-01 10:31:04 - C:\Program Files\Java\jdk-11.0.8\bin\server\jvm.dll is a 64bit dll
+2023-01-01 10:31:04 - Using Java from PATH:C:\Program Files\Java\jdk-11.0.8
+2023-01-01 10:31:04 - Using 10472MB memory
+2023-01-01 10:31:04 - Using classpath parameter: -Djava.class.path=C:\Users\Bernd\Downloads\Workbench-Build129\sqlworkbench.jar;C:\Users\Bernd\Downloads\Workbench-Build129\ext\flatlaf.jar;C:\Users\Bernd\Downloads\Workbench-Build129\ext\jsch.jar
+2023-01-01 10:31:04 - Adding JVM option: -Dvisualvm.display.name=SQLWorkbench/J
+2023-01-01 10:31:04 - Adding JVM option: --add-opens=java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
+2023-01-01 10:31:04 - Adding JVM option: -Xverify:none
+2023-01-01 10:31:04 - Adding JVM option: -Xmx10472m
+2023-01-01 10:31:04 - JVM created from C:\Program Files\Java\jdk-11.0.8\bin\server\jvm.dll, JNI version=10.0

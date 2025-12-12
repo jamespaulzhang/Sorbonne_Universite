@@ -1,0 +1,29 @@
+; Sample configuration file for the SQLWorkbench launcher
+;
+; Using a 64bit Java runtime is highly recommended
+; =======================================================
+
+[Workbench]
+; javaHome identifies the directory where the Java runtime is installed
+; The launcher will look for jvm.dll in the subfolder bin\server or bin\client in that directory
+;
+; Alternatively the Java home can be passed on the command line using the -javaHome parameter 
+
+;javaHome=c:\Program Files\Java
+
+; Parameters for the JVM
+; all JVM parameters (-X and -D) can also be passed directly on the commandline
+; for SQLWorkbench.exe
+; The numbers/values after vmarg. (but before the =) are ignored and only there to ensure unique keys
+; in the [Java] section to make the Windows INI parser happy.
+
+[Java]
+; e.g. set the allowed memory to 4GB (only possible with 64bit Java)
+; vmarg.mem=-Xmx4g
+
+; for High-DPI Screens the following system properties might be needed
+; vmarg.dpi=-Dsun.java2d.dpiaware=false
+
+; or these
+; vmarg.ui1=-Dsun.java2d.uiScale=125%
+; vmarg.ui2=-Dsun.java2d.uiScale.enabled=true

@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.10.8
+Created-By: Thomas Kellerer (support@sql-workbench.eu)
+Main-Class: workbench.WbStarter
+Implementation-Title: SQL Workbench/J
+Implementation-URL: http://www.sql-workbench.eu
+WbBuild-Number: 129
+WbBuild-Date: 2022-10-23 13:16
+Add-Opens: java.desktop/com.sun.java.swing.plaf.windows java.desktop/c
+ om.apple.laf java.base/java.lang
+Class-Path: . ext/flatlaf.jar ext/poi.jar ext/poi-ooxml.jar ext/common
+ s-codec.jar ext/commons-collections4.jar ext/commons-io.jar ext/commo
+ ns-compress.jar ext/commons-logging.jar ext/poi-ooxml-lite.jar ext/si
+ mple-odf.jar ext/jna.jar ext/jna-platform.jar ext/xmlbeans.jar ext/po
+ i-ooxml-full.jar ext/log4j-api.jar ext/log4j-core.jar ext/dbunit.jar 
+ ext/slf4j-api.jar ext/mail.jar ext/jsch.jar ext/
+
