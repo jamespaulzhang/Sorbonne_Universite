@@ -1,0 +1,299 @@
+{
+  "size_100_noise_0.01": {
+    "RBFN": {
+      "errors_mean": 4.3094863773456495,
+      "errors_std": 5.371255209255841,
+      "times_mean": 0.00027942657470703125,
+      "times_std": 0.0001645030605763978,
+      "best_params": {
+        "n_features": 8
+      }
+    },
+    "LWR": {
+      "errors_mean": 25.506999778376326,
+      "errors_std": 7.114453582542079,
+      "times_mean": 0.053816000620524086,
+      "times_std": 0.03562559893713975,
+      "best_params": {
+        "n_features": 92
+      }
+    },
+    "NeuralNetwork": {
+      "errors_mean": 0.10360178848107655,
+      "errors_std": 0.028336306454283703,
+      "times_mean": 0.6540494759877523,
+      "times_std": 0.11471429816279685,
+      "best_params": {
+        "hidden_dim": 86,
+        "n_layers": 2,
+        "lr": 0.005407821757608731,
+        "epochs": 1295,
+        "batch_size": 51
+      }
+    }
+  },
+  "size_100_noise_0.1": {
+    "RBFN": {
+      "errors_mean": 0.039284866099942604,
+      "errors_std": 0.0055776097393422635,
+      "times_mean": 0.00013367335001627603,
+      "times_std": 5.242763777893242e-05,
+      "best_params": {
+        "n_features": 17
+      }
+    },
+    "LWR": {
+      "errors_mean": 24.210331165191295,
+      "errors_std": 0.33362741689663816,
+      "times_mean": 0.048123677571614586,
+      "times_std": 0.031109296225015313,
+      "best_params": {
+        "n_features": 72
+      }
+    },
+    "NeuralNetwork": {
+      "errors_mean": 0.03328485352297624,
+      "errors_std": 0.0017959829517424522,
+      "times_mean": 0.42411065101623535,
+      "times_std": 0.19790104721915175,
+      "best_params": {
+        "hidden_dim": 41,
+        "n_layers": 2,
+        "lr": 0.0023771815631784183,
+        "epochs": 877,
+        "batch_size": 97
+      }
+    }
+  },
+  "size_100_noise_0.5": {
+    "RBFN": {
+      "errors_mean": 0.16096644122219642,
+      "errors_std": 0.005488608863432931,
+      "times_mean": 9.163220723470052e-05,
+      "times_std": 3.393053701115103e-05,
+      "best_params": {
+        "n_features": 5
+      }
+    },
+    "LWR": {
+      "errors_mean": 46.3972582759452,
+      "errors_std": 1.7534755572269065,
+      "times_mean": 0.025454282760620117,
+      "times_std": 0.026362282040037894,
+      "best_params": {
+        "n_features": 9
+      }
+    },
+    "NeuralNetwork": {
+      "errors_mean": 0.1578174481789271,
+      "errors_std": 0.0027970234627066972,
+      "times_mean": 0.29532257715861004,
+      "times_std": 0.022227836921248825,
+      "best_params": {
+        "hidden_dim": 10,
+        "n_layers": 1,
+        "lr": 0.0059864242902401745,
+        "epochs": 923,
+        "batch_size": 105
+      }
+    }
+  },
+  "size_1000_noise_0.01": {
+    "RBFN": {
+      "errors_mean": 0.0030627850920258905,
+      "errors_std": 2.050786872626472e-05,
+      "times_mean": 0.0005928675333658854,
+      "times_std": 5.237484552381188e-05,
+      "best_params": {
+        "n_features": 50
+      }
+    },
+    "LWR": {
+      "errors_mean": 248.69212405110508,
+      "errors_std": 8.201369855591794,
+      "times_mean": 0.7713249524434408,
+      "times_std": 0.023899787300562702,
+      "best_params": {
+        "n_features": 80
+      }
+    },
+    "NeuralNetwork": {
+      "errors_mean": 0.025508499704301357,
+      "errors_std": 0.013995870571160042,
+      "times_mean": 6.52221663792928,
+      "times_std": 0.9093634299244984,
+      "best_params": {
+        "hidden_dim": 96,
+        "n_layers": 2,
+        "lr": 0.009877033527748939,
+        "epochs": 1674,
+        "batch_size": 51
+      }
+    }
+  },
+  "size_1000_noise_0.1": {
+    "RBFN": {
+      "errors_mean": 0.02958697812104281,
+      "errors_std": 0.0007927070639432846,
+      "times_mean": 0.0004085699717203776,
+      "times_std": 5.4590855464012715e-05,
+      "best_params": {
+        "n_features": 43
+      }
+    },
+    "LWR": {
+      "errors_mean": 77.12107988303991,
+      "errors_std": 18.501649153910787,
+      "times_mean": 0.6364824771881104,
+      "times_std": 0.05990842082454749,
+      "best_params": {
+        "n_features": 75
+      }
+    },
+    "NeuralNetwork": {
+      "errors_mean": 0.03401195754607519,
+      "errors_std": 0.003332469790063699,
+      "times_mean": 4.651841958363851,
+      "times_std": 1.120349315798282,
+      "best_params": {
+        "hidden_dim": 87,
+        "n_layers": 2,
+        "lr": 0.003441017393518794,
+        "epochs": 1498,
+        "batch_size": 94
+      }
+    }
+  },
+  "size_1000_noise_0.5": {
+    "RBFN": {
+      "errors_mean": 0.15611905960558856,
+      "errors_std": 0.006097895288134999,
+      "times_mean": 0.0004585584004720052,
+      "times_std": 0.00011275330828573762,
+      "best_params": {
+        "n_features": 22
+      }
+    },
+    "LWR": {
+      "errors_mean": 579.0449200399793,
+      "errors_std": 3.9910317223420764,
+      "times_mean": 0.10817535718282063,
+      "times_std": 0.05193518261887794,
+      "best_params": {
+        "n_features": 26
+      }
+    },
+    "NeuralNetwork": {
+      "errors_mean": 0.1544808049996694,
+      "errors_std": 0.0029557582445828446,
+      "times_mean": 3.653303384780884,
+      "times_std": 1.8319195014123204,
+      "best_params": {
+        "hidden_dim": 74,
+        "n_layers": 2,
+        "lr": 0.006976966462040643,
+        "epochs": 1792,
+        "batch_size": 71
+      }
+    }
+  },
+  "size_5000_noise_0.01": {
+    "RBFN": {
+      "errors_mean": 0.0029110221240734066,
+      "errors_std": 9.884974641278026e-06,
+      "times_mean": 0.002409219741821289,
+      "times_std": 7.678583641226436e-05,
+      "best_params": {
+        "n_features": 57
+      }
+    },
+    "LWR": {
+      "errors_mean": 2135.6853986435276,
+      "errors_std": 41.45796990945266,
+      "times_mean": 3.0051897366841636,
+      "times_std": 1.8115369384153643,
+      "best_params": {
+        "n_features": 95
+      }
+    },
+    "NeuralNetwork": {
+      "errors_mean": 0.0184183147115012,
+      "errors_std": 0.01678611573671069,
+      "times_mean": 23.37125849723816,
+      "times_std": 5.136515268139593,
+      "best_params": {
+        "hidden_dim": 65,
+        "n_layers": 2,
+        "lr": 0.008349125691487547,
+        "epochs": 749,
+        "batch_size": 51
+      }
+    }
+  },
+  "size_5000_noise_0.1": {
+    "RBFN": {
+      "errors_mean": 0.02918702491249805,
+      "errors_std": 0.00011201194094375777,
+      "times_mean": 0.0029795169830322266,
+      "times_std": 0.0007909586578560441,
+      "best_params": {
+        "n_features": 36
+      }
+    },
+    "LWR": {
+      "errors_mean": 1783.2448493007016,
+      "errors_std": 17.555023640317167,
+      "times_mean": 3.7246236006418862,
+      "times_std": 1.6705434246250659,
+      "best_params": {
+        "n_features": 90
+      }
+    },
+    "NeuralNetwork": {
+      "errors_mean": 0.0302752535790205,
+      "errors_std": 0.0009097061515944538,
+      "times_mean": 27.062153498331707,
+      "times_std": 14.917084506508274,
+      "best_params": {
+        "hidden_dim": 78,
+        "n_layers": 2,
+        "lr": 0.0028757352317666266,
+        "epochs": 1101,
+        "batch_size": 78
+      }
+    }
+  },
+  "size_5000_noise_0.5": {
+    "RBFN": {
+      "errors_mean": 0.1458730434480253,
+      "errors_std": 0.00046011400154174706,
+      "times_mean": 0.001899401346842448,
+      "times_std": 0.0004005543925476075,
+      "best_params": {
+        "n_features": 55
+      }
+    },
+    "LWR": {
+      "errors_mean": 1293.7889840435198,
+      "errors_std": 39.68225529092647,
+      "times_mean": 3.862285614013672,
+      "times_std": 1.0828330761381848,
+      "best_params": {
+        "n_features": 98
+      }
+    },
+    "NeuralNetwork": {
+      "errors_mean": 0.14895535508791605,
+      "errors_std": 0.0016895641944862556,
+      "times_mean": 29.82265003522237,
+      "times_std": 14.178369168074155,
+      "best_params": {
+        "hidden_dim": 95,
+        "n_layers": 2,
+        "lr": 0.008826687350317974,
+        "epochs": 1542,
+        "batch_size": 103
+      }
+    }
+  }
+}
